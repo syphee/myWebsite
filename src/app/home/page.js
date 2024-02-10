@@ -26,6 +26,9 @@ export default function LandingPage() {
 
                 <HomeBtn/>
             </div>
+            {/* https://www.framer.com/motion/examples/ */}
+            {/* https://docs.pmnd.rs/react-three-fiber/getting-started/introduction */}
+            {/* https://threejs.org/ */}
             <NavDrawer miniTitle={"I am,"} title={"James Landicho"}/>
             <Footer />
 
