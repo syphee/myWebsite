@@ -5,10 +5,10 @@ import "../assets/home.css";
 
 import { useState } from "react";
 
-export default function NavDrawer({ miniTitle, title }) {
-    function hideNav() {
-        setVisible(false);
 export default function NavDrawer({miniTitle,title}){
+
+
+    const [visible, setVisible] = useState(true);
 
     function hideNav (){
         setVisible(true);
@@ -17,8 +17,6 @@ export default function NavDrawer({miniTitle,title}){
         setVisible(true);
     }
 
-    const [visible, setVisible] = useState(true);
-    const [visible,setVisible] = useState(true);
 
     return (
         <section className="flex h-screen">
