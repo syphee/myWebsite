@@ -3,47 +3,67 @@ import Header from "../assets/header";
 
 import "../assets/home.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function NavDrawer({miniTitle,title}){
+export default function NavDrawer({ miniTitle, title }) {
+  const [visible, setVisible] = useState(true);
 
+  const words = ["Developer", "Designer", "Creator"];
 
-    const [visible, setVisible] = useState(true);
+  const typingSpeed = 80;
+  const deletingSpeed = 50;
+  const pauseAfterType = 1200;
 
-    function hideNav (){
-        setVisible(true);
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    let timeout;
+
+    if (!isDeleting) {
+      timeout = setTimeout(() => {
+        setText(currentWord.slice(0, text.length + 1));
+
+        if (text.length + 1 === currentWord.length) {
+          setTimeout(() => setIsDeleting(true), pauseAfterType);
+        }
+      }, typingSpeed);
+    } else {
+      timeout = setTimeout(() => {
+        setText(currentWord.slice(0, text.length - 1));
+
+        if (text.length === 1) {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }, deletingSpeed);
     }
-    function showNav() {
-        setVisible(true);
-    }
 
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex]);
 
-    return (
-        <section className="flex h-screen">
-            <div className="h-150 m-auto">
-                <div>
-                    <span>{miniTitle}</span>
-                    <h1 className="mt-5 text-7xl">
-                        {title}
-                        <div className="  ">
-                            <Header visible={visible} />
-                        </div>
-                    </h1>
-                </div>
+  return (
+    <section className="flex h-screen">
+      <div className="h-150 m-auto">
+        <div>
+          <span>{miniTitle}</span>
+          <h1 className="mt-0 text-7xl">
+            {title}
+            <h1 className="font-mono text-4xl">
+              I’m a&nbsp;
+              <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">
+                {text}
+              </span>
+              <span className="ml-1 animate-blink">|</span>
+            </h1>
+            <div className="  ">
+              <Header visible={visible} />
             </div>
-                <div className="h-150 m-auto">
-                    <div>
-                        <span>{miniTitle}</span>
-                        <h1 className="mt-5 text-7xl hover:translate-x-6 duration-500 ease-in-out" onMouseOver={() => showNav()} onMouseOut={ () => hideNav()}>
-                            {title}
-                            <div className="  transition-opacity opacity-50 hover:opacity-100">
-                                
-                                <Header visible={visible} />
-                            </div>
-                        </h1>
-                    </div>
-
-                </div>
-        </section>
-    );
+          </h1>
+        </div>
+      </div>
+    </section>
+  );
 }
