@@ -69,123 +69,121 @@ export default function LandingPage() {
     return state;
   }
 
-  const [state, dispatch] = useReducer(contentBackgroundSwitcher, {
-    introduction: "",
-    myvalues: "",
-  });
+    const [state, dispatch] = useReducer(contentBackgroundSwitcher, { introduction: "", myvalues: "" })
 
-  function changeBackground(type) {
-    //contentBackgroundSwitcher();
-    dispatch(type);
 
-    //setBackground(img)
-    console.log("Changed background.");
-  }
+    function changeBackground(type) {
+        //contentBackgroundSwitcher();
+        dispatch(type)
 
-  // to put sections of page targetting each ID for timeline selector
+        //setBackground(img)
+        console.log("Changed background.")
 
-  const [visible, setVisible] = useState(false);
 
-  function hideScreen() {
-    console.log("Screen is hidden");
-    setVisible(false);
-  }
-  function showScreen() {
-    console.log("Screen is visible");
-    setVisible(true);
-  }
-
-  const [currentScrolledPx, setPx] = useState(0);
-
-  function setWindowHeight(val) {
-    if (val == 0) {
-      console.log("nope");
-    } else {
-      console.log("Setting window height.." + val);
-      setPx(val);
     }
-  }
 
-  useEffect(() => {
-    if (visible == true) {
-      console.log(
-        "Returned to screen! Scrolling to height : " + currentScrolledPx
-      );
-      window.scrollTo(0, currentScrolledPx);
-    } else if (visible == false) {
-      console.log("Screen hidden");
+
+
+
+    // to put sections of page targetting each ID for timeline selector
+
+
+
+    const [visible, setVisible] = useState(false);
+
+    function hideScreen() {
+        console.log("Screen is hidden")
+        setVisible(false);
     }
-  }, [visible]);
+    function showScreen() {
+        console.log("Screen is visible")
+        setVisible(true)
+    }
 
-  return (
-    <>
-      <main
-        className={`${
-          visible ? " block " : " hidden "
-        } h-screen w-screen duration-500 ease-in-out`}
-        onMouseLeave={() => {
-          hideScreen();
-        }}
-      >
-        <div className="flex justify-center">
-          <HomeBtn />
-        </div>
+    const [currentScrolledPx,setPx] = useState(0);
 
-        <div id="A" className="pageContent">
-          <NavDrawer miniTitle={"About"} title={"Me"} />
-        </div>
+    function setWindowHeight(val){
+        if(val == 0){
+        console.log("nope")
+        }else{
+            console.log("Setting window height.." + val)
+            setPx(val)
+        }
+        
+    }
 
-        <TimeLine returnHeight={setWindowHeight} />
+    useEffect(()=>{
+        if(visible == true){
+            console.log("Returned to screen! Scrolling to height : " + currentScrolledPx)
+            window.scrollTo(0,currentScrolledPx)
+        
 
-        {Object.keys(contentInfo).map((item, index) => {
-          console.log("Item: " + item);
-          for (let key in contentInfo) {
-            if (contentInfo.hasOwnProperty(item)) {
-              // Accessing the inner objects using the keys
-              const innerObject = contentInfo[item];
-              console.log(`Object Key: ${item}`);
-              console.log(innerObject);
-              return (
-                <div
-                  id={`:${index}`}
-                  className="h-full w-full m-auto pageContent opacity-0 hover:opacity-100 duration-1000"
-                  style={{
-                    backgroundImage: `url("${state[item]}")`,
-                    height: "100%",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <LeftRightContent
-                    changeBackground={changeBackground}
-                    contentType={item}
-                    contentHeader={contentInfo[item].contentHeader}
-                    contentSubHeader={contentInfo[item].contentSubHeader}
-                    leftHeader={contentInfo[item].leftHeader}
-                    leftContent={contentInfo[item].leftContent}
-                    rightHeader={contentInfo[item].rightHeader}
-                    rightContent={contentInfo[item].rightContent}
-                  />
+
+        }else if(visible == false){
+            console.log("Screen hidden")
+        }
+
+    },[visible])
+
+
+    return (
+        <>
+
+            <main className={`h-screen w-screen duration-500 ease-in-out`} >
+
+                <div className="flex justify-center">
+                    <HomeBtn />
                 </div>
-              );
-            }
-          }
-        })}
 
-        <Footer />
-      </main>
+                <div id="A" className="pageContent">
+                    <NavDrawer miniTitle={"About"} title={"Me"} />
+                </div>
 
-      <main
-        className={`${
-          visible ? " hidden " : " block "
-        }h-full w-full hover:opacity-100 hover:visible duration-500 ease-in-out`}
-        onMouseEnter={() => {
-          showScreen();
-        }}
-      >
-        <IdleComponent />
-      </main>
-    </>
-  );
+                <TimeLine returnHeight={setWindowHeight} />
+                {
+
+                    Object.keys(contentInfo).map((item, index) => {
+                        console.log("Item: " + item)
+                        for (let key in contentInfo) {
+                            if (contentInfo.hasOwnProperty(item)) {
+                                // Accessing the inner objects using the keys
+                                const innerObject = contentInfo[item];
+                                console.log(`Object Key: ${item}`);
+                                console.log(innerObject);
+                                return (
+                                    <div id={`:${index}`} key={index} className="h-full w-full m-auto pageContent opacity-30 hover:opacity-100 duration-1000" style={{ backgroundImage: `url("${state[item]}")`, height: "100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                                        <LeftRightContent changeBackground={changeBackground} contentType={item} contentHeader={contentInfo[item].contentHeader} contentSubHeader={contentInfo[item].contentSubHeader} leftHeader={contentInfo[item].leftHeader} leftContent={contentInfo[item].leftContent} rightHeader={contentInfo[item].rightHeader} rightContent={contentInfo[item].rightContent} />
+                                    </div>
+                                )
+
+                            }
+                        }
+
+                    })
+
+
+
+
+                }
+
+
+                <Footer />
+
+
+
+
+
+            </main>
+            {
+            /*
+            <main className={`${visible ?  " hidden ": " block "}h-full w-full hover:opacity-100 hover:visible duration-500 ease-in-out`} onMouseEnter={() => { showScreen()}}>
+            
+                <IdleComponent  />
+            </main>
+
+*/}
+
+        </>
+    )
+
 }

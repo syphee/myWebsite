@@ -28,16 +28,16 @@ export default function header({visible}) {
         
             <header className=" flex flex-row m-2 rounded round-5">
             {/* <HomeIcon className="w-6 h-6"/> */}
-                <div className={!visible && `invisible duration-500 ease-in-out`}>
+                <div className={!visible ? `invisible duration-500 ease-in-out` : undefined}>
 
 
-                <nav className=" hidden sm:max-lg:block lg:block">
+                <nav className=" sm:max-lg:block lg:block">
                     <table className="table-auto border-spacing-5 border-separate">
                         <tbody>
                             <tr className="">
-                                {headerBtns.map((item) => {
+                                {headerBtns.map((item,key) => {
                                     return (
-                                        <td className="text-white-400 text-xl">
+                                        <td key={key} className="text-white-400 text-xl">
                                             <Link href={item.link} className="opacity-30 hover:opacity-100 hover:text-sky-400 hover:animate-pulse duration-500 ease-in-out">{item.title}</Link>
                                         </td>
                                     )

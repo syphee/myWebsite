@@ -2,7 +2,7 @@
 import { useState, useReducer } from "react"
 
 
-export default function myValues({changeBackground}) {
+export default function MyValues({changeBackground}) {
 
     const [visibleRight, setVisibleRight] = useState(false);
     const [visibleLeft, setVisibleLeft] = useState(false);
@@ -21,7 +21,7 @@ export default function myValues({changeBackground}) {
                 console.log(visibleLeft)
                 if (state.direction == '-translate-x-1/2') {
                     changeBackground({type:'myvalues'});
-                    return { direction: state.direction = "", showRight: true, showLeft: false }
+                    return { direction: state.direction = ``, showRight: true, showLeft: false }
                 } else {
                     changeBackground({type:'myvalues',direction:'left'});
                     return { direction: state.direction = "-translate-x-1/2", showRight: true, showLeft: false }
@@ -32,14 +32,14 @@ export default function myValues({changeBackground}) {
                 console.log(visibleRight)
                 if (state.direction == 'translate-x-1/2') {
                     changeBackground({type:'myvalues'});
-                    return { direction: state.direction = "", showRight: false, showLeft: true }
+                    return { direction: state.direction = ``, showRight: false, showLeft: true }
                 } else {
                     changeBackground({type:'myvalues',direction:'right'});
                     return { direction: state.direction = "translate-x-1/2", showRight: false, showLeft: false }
                 }
             }
             default: {
-                return { direction: state.direction = "", showRight: null, showLeft: null }
+                return { direction: state.direction = ``, showRight: null, showLeft: null }
             }
         }
     }

@@ -1,7 +1,7 @@
 'use client'
 import {useState,useReducer} from "react"
 import Link from "next/link"
-export default function produceMusic(){
+export default function ProduceMusic(){
 
     const [visible,setVisible] = useState(false); 
 
