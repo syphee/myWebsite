@@ -117,8 +117,7 @@ export default function LandingPage() {
             <div id="A" className="pageContent">
                 <NavDrawer miniTitle={"My"} title={"Interests"} />
             </div>
-            <TimeLine 
-returnHeight={setWindowHeight} />
+            <TimeLine returnHeight={setWindowHeight} />
 
             <div id="B" className="h-screen m-auto pageContent  duration-500 ">
                 <ProduceMusic />

@@ -9,13 +9,13 @@ import { useState } from "react"
 export default function NavDrawer({miniTitle,title}){
 
     function hideNav (){
-        setVisible(false);
+        setVisible(true);
     }
     function showNav(){
         setVisible(true)
     }
 
-    const [visible,setVisible] = useState(false);
+    const [visible,setVisible] = useState(true);
 
     return(
         <section className="flex h-screen">
@@ -24,7 +24,7 @@ export default function NavDrawer({miniTitle,title}){
                         <span>{miniTitle}</span>
                         <h1 className="mt-5 text-7xl hover:translate-x-6 duration-500 ease-in-out" onMouseOver={() => showNav()} onMouseOut={ () => hideNav()}>
                             {title}
-                            <div className="  transition-opacity opacity-0 hover:opacity-100">
+                            <div className="  transition-opacity opacity-50 hover:opacity-100">
                                 
                                 <Header visible={visible} />
                             </div>
