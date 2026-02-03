@@ -1,6 +1,6 @@
 export default function Idle({toggle}){
     return(
-        <section className="flex h-screen w-screen  opacity-0 visible hover:invisible hover:opacity-100 animate-pulse" onClick={()=>{toggle()}}>
+      /*  <section className="flex h-screen w-screen  opacity-0 visible hover:invisible hover:opacity-100 animate-pulse" onClick={()=>{toggle()}}>
                 <div className="h-150 m-auto">
                     <div>
                         <span>:)</span>
@@ -12,7 +12,8 @@ export default function Idle({toggle}){
 
                 </div>
         </section>
-
+*/
+        <></>
     )
 }
 

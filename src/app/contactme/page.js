@@ -94,7 +94,7 @@ export default function LandingPage() {
 
     return (
         <>
-        <main className={`${visible ? " block ": " hidden "} h-screen w-screen duration-500 ease-in-out`} onMouseLeave={() => { hideScreen()}}>
+        <main className={`h-screen w-screen duration-500 ease-in-out`} >
 
             <div className="flex justify-center">
                 <HomeBtn />

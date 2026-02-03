@@ -124,7 +124,7 @@ export default function LandingPage() {
     return (
         <>
 
-            <main className={`${visible ? " block ": " hidden "} h-screen w-screen duration-500 ease-in-out`} onMouseLeave={() => { hideScreen()}}>
+            <main className={`h-screen w-screen duration-500 ease-in-out`} >
 
                 <div className="flex justify-center">
                     <HomeBtn />
@@ -135,9 +135,6 @@ export default function LandingPage() {
                 </div>
 
                 <TimeLine returnHeight={setWindowHeight} />
-
-
-
                 {
 
                     Object.keys(contentInfo).map((item, index) => {
@@ -149,7 +146,7 @@ export default function LandingPage() {
                                 console.log(`Object Key: ${item}`);
                                 console.log(innerObject);
                                 return (
-                                    <div id={`:${index}`} className="h-full w-full m-auto pageContent opacity-0 hover:opacity-100 duration-1000" style={{ backgroundImage: `url("${state[item]}")`, height: "100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                                    <div id={`:${index}`} className="h-full w-full m-auto pageContent opacity-30 hover:opacity-100 duration-1000" style={{ backgroundImage: `url("${state[item]}")`, height: "100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                                         <LeftRightContent changeBackground={changeBackground} contentType={item} contentHeader={contentInfo[item].contentHeader} contentSubHeader={contentInfo[item].contentSubHeader} leftHeader={contentInfo[item].leftHeader} leftContent={contentInfo[item].leftContent} rightHeader={contentInfo[item].rightHeader} rightContent={contentInfo[item].rightContent} />
                                     </div>
                                 )
@@ -172,13 +169,14 @@ export default function LandingPage() {
 
 
             </main>
-            
+            {
+            /*
             <main className={`${visible ?  " hidden ": " block "}h-full w-full hover:opacity-100 hover:visible duration-500 ease-in-out`} onMouseEnter={() => { showScreen()}}>
             
                 <IdleComponent  />
             </main>
 
-
+*/}
 
         </>
     )
