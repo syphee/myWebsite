@@ -2,7 +2,7 @@
 import { useState, useReducer } from "react"
 
 
-export default function myValues({changeBackground}) {
+export default function MyValues({changeBackground}) {
 
     const [visibleRight, setVisibleRight] = useState(false);
     const [visibleLeft, setVisibleLeft] = useState(false);
