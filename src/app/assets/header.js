@@ -35,9 +35,9 @@ export default function header({visible}) {
                     <table className="table-auto border-spacing-5 border-separate">
                         <tbody>
                             <tr className="">
-                                {headerBtns.map((item) => {
+                                {headerBtns.map((item,key) => {
                                     return (
-                                        <td className="text-white-400 text-xl">
+                                        <td key={key} className="text-white-400 text-xl">
                                             <Link href={item.link} className="opacity-30 hover:opacity-100 hover:text-sky-400 hover:animate-pulse duration-500 ease-in-out">{item.title}</Link>
                                         </td>
                                     )

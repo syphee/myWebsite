@@ -111,7 +111,7 @@ return timer
                 {ids.map((item,index) => {
 
                     return (
-                        <Link  href={`#` + item}>
+                        <Link key={index} href={`#` + item}>
                             <div id={index} className={`rounded-full w-2 h-2  my-5 hover:w-3 hover:h-3 duration-500 ease-in-out ${index == circleIndex ? 'bg-sky-400 w-5 h-5 animate-pulse' : 'bg-white'}` }>
 
                             </div>
