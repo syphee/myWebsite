@@ -30,6 +30,7 @@ export default function LandingPage() {
             {/* https://docs.pmnd.rs/react-three-fiber/getting-started/introduction */}
             {/* https://threejs.org/ */}
             <NavDrawer miniTitle={"I am,"} title={"James Landicho"}/>
+            live update?
             <Footer />
 
         </main>
