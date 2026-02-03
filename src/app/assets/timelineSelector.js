@@ -100,7 +100,7 @@ export default function TimeLineSelector({images,returnHeight}) {
             window.removeEventListener('scroll', handleScroll);
         };
     },500)
-return timer
+return () => clearTimeout(timer);
     
     
 }, []);

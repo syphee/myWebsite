@@ -135,7 +135,7 @@ returnHeight={setWindowHeight} />
                             console.log(`Object Key: ${item}`);
                             console.log(innerObject);
                             return (
-                                <div id={`:${index}`} className="h-full w-full m-auto pageContent opacity-30 hover:opacity-100 duration-1000" style={{ backgroundImage: `url("${state[item]}")`, height: "100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                                <div key={index} id={`:${index}`} className="h-full w-full m-auto pageContent opacity-30 hover:opacity-100 duration-1000" style={{ backgroundImage: `url("${state[item]}")`, height: "100%", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
                                     <LeftRightContent changeBackground={changeBackground} contentType={item} contentHeader={contentInfo[item].contentHeader} contentSubHeader={contentInfo[item].contentSubHeader} leftHeader={contentInfo[item].leftHeader} leftContent={contentInfo[item].leftContent} rightHeader={contentInfo[item].rightHeader} rightContent={contentInfo[item].rightContent} />
                                 </div>
                             )
