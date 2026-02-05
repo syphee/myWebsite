@@ -4,7 +4,7 @@ Migratiom
 - host imgs in google photos / supabase
 - make work experience section dynamically filled, use supabase
 - find a component library that looks clean / glassmorphism
-> HeroUI[https://www.heroui.com/]
+> HeroUI[https://v3.heroui.com/docs/react/getting-started/quick-start]
 
 content
 - make up self intro
