@@ -1,6 +1,9 @@
 "use client";
+import { Bars3Icon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
+
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
 import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
@@ -19,16 +22,62 @@ export default function LandingPage() {
 
   return (
     <main className="h-screen">
-      <div className="flex justify-center">
-        <HomeBtn />
-      </div>
+      <HomeBtn />
+
       {/* https://www.framer.com/motion/examples/ */}
       {/* https://docs.pmnd.rs/react-three-fiber/getting-started/introduction */}
       {/* https://threejs.org/ */}
       {/* <NavDrawer miniTitle={"I am,"} title={"James Landicho"} /> */}
       <section className="flex">
-        <div className="h-70 m-auto">
-          <NavDrawer miniTitle={"I am,"} title={"James Landicho"} />
+        <div className="h-auto m-auto">
+          <div className="flex flex-wrap flex-rows flex-spacing-5">
+            <img
+              className="bg-blue-500 m-auto mr-5 p-auto hidden md:block lg:block"
+              alt="My portrait photo-sm"
+            />
+            <NavDrawer
+              className="p-5"
+              miniTitle={"I am,"}
+              title={"James Landicho"}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="flex flex-col flex-spacing-5 h-50 m-10 p-auto justify-center">
+        <img
+              className="col bg-blue-500 block mb-10"
+              alt="My portrait photo-lg"
+            />
+        <h1>
+          I am James, an aspiring
+          <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">
+            Full-Stack Software Engineer 
+          </span>
+          from the Philippines.
+        </h1>
+        <br/>
+        <span>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book!
+        </span>
+
+        <div className="flex flex-rows justify-left">
+          <button class="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full p-1">
+  <button class="flex w-full bg-gray-900 text-white rounded-full p-2">
+  My resume
+     </button>
+</button>
+<button class="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded p-1">
+  <span class="flex w-full bg-gray-900 text-white rounded p-2">
+  Gradient border
+     </span>
+</button>
+
+
+          
+          <button className="rounded-full p-2 m-1 border-2 border-indigo-500 mt-5">Education </button>
+          <button className="rounded-full p-2 m-1 border-2 border-indigo-500 mt-5">Interests</button>
         </div>
       </section>
 

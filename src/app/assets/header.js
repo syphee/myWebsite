@@ -79,11 +79,6 @@ export default function header({ visible }) {
               </tbody>
             </table>
           </nav>
-          <nav className="flex justify-start max-sm:block h-6 w-6">
-            <Link href="#">
-              <Bars3Icon />
-            </Link>
-          </nav>
         </div>
       </header>
     </>
