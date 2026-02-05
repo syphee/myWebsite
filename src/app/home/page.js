@@ -1,6 +1,7 @@
 "use client";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
 
@@ -31,7 +32,7 @@ export default function LandingPage() {
       <section className="flex">
         <div className="h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5">
-            <img
+            <Image
               className="bg-blue-500 m-auto mr-5 p-auto hidden md:block lg:block"
               alt="My portrait photo-sm"
             />
@@ -44,7 +45,7 @@ export default function LandingPage() {
         </div>
       </section>
       <section className="flex flex-col flex-spacing-5 h-50 m-10 p-auto justify-center">
-        <img
+        <Image
               className="col bg-blue-500 block mb-10"
               alt="My portrait photo-lg"
             />
