@@ -34,38 +34,38 @@ export default function LandingPage() {
 
       <section className="flex h-70">
         <div className="h-70 m-auto">
-          <div class="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
+          <div className="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
 
-            <h3 class="relative text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="relative text-lg font-semibold text-slate-900 dark:text-white">
               Glass Card
             </h3>
 
-            <p class="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
+            <p className="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
               Subtle gradient, smooth hover, modern feel.
             </p>
           </div>
 
-          <div class="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
+          <div className="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
 
-            <h3 class="relative text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="relative text-lg font-semibold text-slate-900 dark:text-white">
               Glass Card
             </h3>
 
-            <p class="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
+            <p className="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
               Subtle gradient, smooth hover, modern feel.
             </p>
           </div>
 
-          <div class="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
-            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
+          <div className="group relative max-w-sm rounded-xl border border-white/10 bg-white/70 p-6 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl dark:bg-slate-900/60">
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-pink-500/10 opacity-0 transition group-hover:opacity-100"></div>
 
-            <h3 class="relative text-lg font-semibold text-slate-900 dark:text-white">
+            <h3 className="relative text-lg font-semibold text-slate-900 dark:text-white">
               Glass Card
             </h3>
 
-            <p class="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
+            <p className="relative mt-2 text-sm text-slate-600 dark:text-slate-300">
               Subtle gradient, smooth hover, modern feel.
             </p>
           </div>

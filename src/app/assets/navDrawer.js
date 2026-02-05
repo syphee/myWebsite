@@ -51,17 +51,18 @@ export default function NavDrawer({ miniTitle, title }) {
           <span>{miniTitle}</span>
           <h1 className="mt-0 text-7xl">
             {title}
-            <h1 className="font-mono text-4xl">
+          </h1>
+            <h2 className="font-mono text-4xl">
               I’m a&nbsp;
               <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">
                 {text}
               </span>
               <span className="ml-1 animate-blink">|</span>
-            </h1>
+            </h2>
             <div className="  ">
               <Header visible={visible} />
             </div>
-          </h1>
+          
         </div>
       </div>
     </section>
