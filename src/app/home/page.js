@@ -21,6 +21,12 @@ export default function LandingPage() {
 
   const [visible, setVisible] = useState(false);
 
+  const introSectionButtons = [
+    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
+    { id: 2, label: "My Interests", from: "from-blue-500", to: "to-purple-500" },
+    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  ];
+
   return (
     <main className="h-screen">
       <HomeBtn />
@@ -46,39 +52,43 @@ export default function LandingPage() {
       </section>
       <section className="flex flex-col flex-spacing-5 h-50 m-10 p-auto justify-center">
         <Image
-              className="col bg-blue-500 block mb-10"
-              alt="My portrait photo-lg"
-            />
+          className="col bg-blue-500 block mb-10"
+          alt="My portrait photo-lg"
+        />
         <h1>
           I am James, an aspiring
           <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">
-            Full-Stack Software Engineer 
+            Full-Stack Software Engineer
           </span>
           from the Philippines.
         </h1>
-        <br/>
+        <br />
         <span>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book!
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. Lorem Ipsum is simply dummy
+          text of the printing and typesetting industry. Lorem Ipsum has been
+          the industry's standard dummy text ever since the 1500s, when an
+          unknown printer took a galley of type and scrambled it to make a type
+          specimen book!
         </span>
 
         <div className="flex flex-rows justify-left">
-          <button class="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full p-1">
-  <button class="flex w-full bg-gray-900 text-white rounded-full p-2">
-  My resume
-     </button>
-</button>
-<button class="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded p-1">
-  <span class="flex w-full bg-gray-900 text-white rounded p-2">
-  Gradient border
-     </span>
-</button>
-
+          <div className="flex flex-wrap gap-4 p-10 ">
+            {introSectionButtons.map((btn) => (
+              <button
+                key={btn.id}
+                className={`bg-gradient-to-r ${btn.from} ${btn.to} p-[1px] rounded-lg transition-all hover:opacity-90 active:scale-95`}
+              >
+                <span className="flex w-full bg-gray-900 text-white rounded-[7px] px-6 py-2 font-semibold">
+                  {btn.label}
+                </span>
+              </button>
+            ))}
+          </div>
 
           
-          <button className="rounded-full p-2 m-1 border-2 border-indigo-500 mt-5">Education </button>
-          <button className="rounded-full p-2 m-1 border-2 border-indigo-500 mt-5">Interests</button>
         </div>
       </section>
 
