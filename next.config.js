@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatar.vercel.sh',
+        // Optional: specify port and pathname if needed
+        // port: '',
+        // pathname: '/account/**', 
+      },
+    ],
+  },
     eslint: {
     ignoreDuringBuilds: true,
   },

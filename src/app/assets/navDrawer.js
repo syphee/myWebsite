@@ -46,7 +46,7 @@ export default function NavDrawer({ miniTitle, title }) {
 
   return (
     <section className="flex h-screen">
-      <div className="h-150 m-auto">
+      <div className=" m-auto">
         <div>
           <span>{miniTitle}</span>
           <h1 className="mt-0 text-7xl">
