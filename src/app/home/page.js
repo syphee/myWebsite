@@ -173,7 +173,7 @@ export default function LandingPage() {
                 {myProjectData.map((btn) => (
                   <CarouselItem
                     key={btn.id}
-                    className=" basis-2/3 sm:basis-1/2 md:basis-1/3"
+                    className=" basis-2/3 sm:basis-1/2 md:basis-3/7"
                   >
                     <Card className="m-5 mx-auto  pt-0 h-full flex flex-col">
                       <div className="absolute aspect-video bg-black/35" />
@@ -204,7 +204,7 @@ export default function LandingPage() {
                         <Button className="w-full bg-green-500 text-white">
                           Live
                         </Button>
-                        <Button className="w-full">Source Code</Button>
+                        <Button className="w-full bg-transparent text-white border">Source Code</Button>
                       </CardFooter>
                     </Card>
                   </CarouselItem>
@@ -221,8 +221,11 @@ export default function LandingPage() {
                   </Card>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious />
+              <div className="hidden lg:block">
+                        <CarouselPrevious  />
               <CarouselNext />
+              </div>
+      
             </Carousel>
             {/* <ScrollArea
               className="h-max w-[400px] rounded-md p-4"
