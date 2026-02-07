@@ -5,7 +5,8 @@ Migratiom
 - make work experience section dynamically filled, use supabase
 - find a component library that looks clean / glassmorphism
 > shadcn[https://ui.shadcn.com/docs/installation/next]
-> extra component libraries[https://www.shadcn.io/]
+> extra component libraries[https://www.shadcn.io/][https://magicui.design/docs/components/terminal]
+> 
 
 content
 - make up self intro
