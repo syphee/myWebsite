@@ -291,7 +291,7 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
           <div>
-            <h1 className="font-bold text-2xl text-center">Tech Stacks</h1>
+            <h1 className="font-bold text-2xl text-center">My Tech Stacks</h1>
           </div>
 
           <div className="my-5">
