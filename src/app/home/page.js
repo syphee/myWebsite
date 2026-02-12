@@ -142,7 +142,9 @@ export default function LandingPage() {
             <NavDrawer
               className=""
               miniTitle={"I am,"}
+              pretext={"> "}
               title={"James Landicho"}
+              typingContent={["Developer", "Designer", "Creator"]}
             />
           </div>
         </div>
@@ -385,25 +387,23 @@ export default function LandingPage() {
                     </span>
                     <CardDescription className="line-clamp-4 mt-3">
                       A practical talk on component APIs, accessibility, and
-                      shipping faster.A practical talk on component APIs, accessibility, and
-                      shipping faster.A practical talk on component APIs, accessibility, and
-                      shipping faster.
+                      shipping faster.A practical talk on component APIs,
+                      accessibility, and shipping faster.A practical talk on
+                      component APIs, accessibility, and shipping faster.
                     </CardDescription>
 
                     <div className="flex flex-wrap max-w-100 gap-2 mt-5">
                       {/* 2. Add w-fit to the gradient wrapper */}
                       {myTechStacks.map((btn) => (
-                <span
-                  key={btn.id}
-                  className="  rounded-[7px]  font-semibold"
-                >
-                  <div className="bg-gradient-to-r from-blue-500 to-purple-500  p-[1px] rounded-lg">
-                        <Badge variant="secondary">React</Badge>
-                      </div>
-                </span>
-              ))}
-                      
-                      
+                        <span
+                          key={btn.id}
+                          className="  rounded-[7px]  font-semibold"
+                        >
+                          <div className="bg-gradient-to-r from-blue-500 to-purple-500  p-[1px] rounded-lg">
+                            <Badge variant="secondary">React</Badge>
+                          </div>
+                        </span>
+                      ))}
                     </div>
 
                     <CardAction className="mx-2  mt-5 mr-5 p-[1px] rounded-lg transition-all ">

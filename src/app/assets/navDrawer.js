@@ -5,10 +5,10 @@ import "../assets/home.css";
 
 import { useState, useEffect } from "react";
 
-export default function NavDrawer({ miniTitle, title }) {
+export default function NavDrawer({ miniTitle, title,pretext,typingContent }) {
   const [visible, setVisible] = useState(true);
 
-  const words = ["Developer", "Designer", "Creator"];
+  const words = typingContent ? typingContent : [];
 
   const typingSpeed = 80;
   const deletingSpeed = 50;
@@ -22,7 +22,8 @@ export default function NavDrawer({ miniTitle, title }) {
     const currentWord = words[wordIndex];
     let timeout;
 
-    if (!isDeleting) {
+    if(currentWord){
+      if (!isDeleting ) {
       timeout = setTimeout(() => {
         setText(currentWord.slice(0, text.length + 1));
 
@@ -40,6 +41,8 @@ export default function NavDrawer({ miniTitle, title }) {
         }
       }, deletingSpeed);
     }
+    }
+    
 
     return () => clearTimeout(timeout);
   }, [text, isDeleting, wordIndex]);
@@ -53,7 +56,7 @@ export default function NavDrawer({ miniTitle, title }) {
             {title}
           </h1>
             <h2 className="font-mono text-4xl">
-              I’m a&nbsp;
+              {pretext}
               <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">
                 {text}
               </span>
