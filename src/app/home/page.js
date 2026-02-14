@@ -1,34 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Bars3Icon } from "@heroicons/react/20/solid";
-import Link from "next/link";
+
 import Image from "next/image";
-import Header from "../assets/header";
+
 import Footer from "../assets/footer";
 
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
-import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
+
 import { useState, useEffect } from "react";
 import NavDrawer from "../assets/navDrawer";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { GridPattern } from "@/registry/magicui/grid-pattern";
 
 import PortraitPic_sm from "./images/6316674175816372309.png";
 import PortraitPic_lg from "./images/6316674175816372311.png";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MagicCard } from "@/registry/magicui/magic-card";
+
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
-import { DotPattern } from "@/registry/magicui/dot-pattern";
+
 import { LightRays } from "@/registry/magicui/light-rays";
 
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -41,6 +36,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+
+import { getProjectsRows, getWorkExperienceRows } from "../controller/notion";
 
 export default function LandingPage() {
   const { theme } = useTheme();
@@ -68,6 +65,22 @@ export default function LandingPage() {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
+  const [myWorkExperienceData, setMyWorkExperienceData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await getWorkExperienceRows();
+
+        setMyWorkExperienceData(result);
+      } catch (error) {
+        console.error("Failed to fetch Notion data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array means this runs once on mount
 
   const [visible, setVisible] = useState(false);
 
@@ -99,6 +112,24 @@ export default function LandingPage() {
     { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
     { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
   ];
+
+  // const myWorkExperienceData = [
+  //   { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
+  //   {
+  //     id: 2,
+  //     label: "My Interests",
+  //     from: "from-blue-500",
+  //     to: "to-purple-500",
+  //   },
+  //   { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 4, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 5, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 6, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 7, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 8, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  //   { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+  // ];
 
   const myTechStacks = [
     { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
@@ -367,51 +398,47 @@ export default function LandingPage() {
           </div>
 
           <div className="w-full ">
-            {myProjectData.map((btn) => (
-              <div key={btn.id} className="flex">
-                <Card className="m-5 mx-auto  pt-0 h-full w-full flex-row items-center">
-                  <Image
-                    src={PortraitPic_lg}
-                    width={50}
-                    height={50}
-                    className="bg-blue-500 "
-                    alt="My portrait photo-lg"
-                  />
-                  <div className="w-full">
-                    <CardTitle className="text-lg my-3">
-                      Full Stack Software Developer
-                    </CardTitle>
+            {myWorkExperienceData.length > 0 ? (
+              myWorkExperienceData.map((res) => (
+                <div key={res.id} className="flex">
+                  <Card className="m-5 mx-auto  pt-0 h-full w-full flex-row items-center">
+                    <Image
+                      src={res.job_logo}
+                      width={50}
+                      height={50}
+                      className="bg-blue-500 "
+                      alt="My portrait photo-lg"
+                    />
+                    <div className="w-full">
+                      <CardTitle className="text-lg my-3">
+                        {res.job_name}
+                      </CardTitle>
 
-                    <span className="opacity-50">
-                      Monetary Authority of Singapore
-                    </span>
-                    <CardDescription className="line-clamp-4 mt-3">
-                      A practical talk on component APIs, accessibility, and
-                      shipping faster.A practical talk on component APIs,
-                      accessibility, and shipping faster.A practical talk on
-                      component APIs, accessibility, and shipping faster.
-                    </CardDescription>
+                      <span className="opacity-50">{res.job_company}</span>
+                      <CardDescription className="line-clamp-4 mt-3">
+                        {res.job_description}
+                      </CardDescription>
 
-                    <div className="flex flex-wrap max-w-100 gap-2 mt-5">
-                      {/* 2. Add w-fit to the gradient wrapper */}
-                      {myTechStacks.map((btn) => (
-                        <span
-                          key={btn.id}
-                          className="  rounded-[7px]  font-semibold"
-                        >
-                          <div className="bg-gradient-to-r from-blue-500 to-purple-500  p-[1px] rounded-lg">
-                            <Badge variant="secondary">React</Badge>
-                          </div>
-                        </span>
-                      ))}
+                      <div className="flex flex-wrap max-w-100 gap-2 mt-5">
+                        {/* 2. Add w-fit to the gradient wrapper */}
+                        {res.job_skills.map((data) => (
+                          <span
+                            key={data.name}
+                            className="  rounded-[7px]  font-semibold"
+                          >
+                            <div className="bg-gradient-to-r from-blue-500 to-purple-500  p-[1px] rounded-lg">
+                              <Badge variant="secondary">{data.name}</Badge>
+                            </div>
+                          </span>
+                        ))}
+                      </div>
+
+                      <CardAction className="mx-2  mt-5 mr-5 p-[1px] rounded-lg transition-all ">
+                        {res.employment_date}
+                      </CardAction>
                     </div>
 
-                    <CardAction className="mx-2  mt-5 mr-5 p-[1px] rounded-lg transition-all ">
-                      Mar 2024 - January 2025
-                    </CardAction>
-                  </div>
-
-                  {/* <CardFooter className="flex space-x-4">
+                    {/* <CardFooter className="flex space-x-4">
                     <Button className="w-full bg-green-500 text-white">
                       Live
                     </Button>
@@ -419,9 +446,12 @@ export default function LandingPage() {
                       Source Code
                     </Button>
                   </CardFooter> */}
-                </Card>
-              </div>
-            ))}
+                  </Card>
+                </div>
+              ))
+            ) : (
+              <>Loading</>
+            )}
           </div>
         </div>
       </section>
