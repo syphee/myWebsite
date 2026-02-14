@@ -37,5 +37,8 @@ functionality
 > find out how to store img in supabase 
 > find a way to update content without manually inserting in supabase?
 
+config
+- update secrets on vercel deploy
+
 # done
 - Notion integration
