@@ -29,14 +29,13 @@ content
 
 functionality
 - work on controller for data handling 
-> supabase / notion to handle data
+> notion to handle data
+>> Work on formatting notion response obj
+>> implement webhooks once everything is done
 
->> [notion CMS:https://www.youtube.com/watch?v=i9-qtkYM4ZM]
->> [supabase : https://www.youtube.com/watch?v=zBZgdTb-dns]
 > my resume to link to google drive link
 > find out how to store img in supabase 
 > find a way to update content without manually inserting in supabase?
 
 # done
-
-- none...
+- Notion integration
