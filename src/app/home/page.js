@@ -253,7 +253,7 @@ export default function LandingPage() {
                             width={800}
                             height={800}
                             alt="Event cover"
-                            className="relative z-20 w-100 aspect-video object-cover brightness-60 grayscale dark:brightness-40"
+                            className="relative z-20 w-full aspect-video object-cover brightness-60 grayscale dark:brightness-40"
                           />
                           <CardAction className="mx-2">
                             <Badge variant="secondary" className="">
@@ -284,10 +284,22 @@ export default function LandingPage() {
                           
                           <CardFooter className="flex space-x-4">
                             <Button className="w-full bg-green-500 text-white">
+                              <a
+                          href={res.project_url}
+                          target="_blank"
+                          className=""
+                        >
                               Live
+                              </a>
                             </Button>
                             <Button className="w-full bg-transparent text-white border">
+                              <a
+                          href={res.project_source_code}
+                          target="_blank"
+                          className=""
+                        >
                               Source Code
+                              </a>
                             </Button>
                           </CardFooter>
                         </Card>

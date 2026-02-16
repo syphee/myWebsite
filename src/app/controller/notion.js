@@ -81,7 +81,7 @@ const getProjectsRows = async () => {
       project_cover_img:
         result.project_cover_img.files?.[0]?.file?.url ??
         result.project_cover_img.files?.[0]?.external?.url ??
-        "",
+        null,
       project_challenges:
         result.project_challenges.rich_text?.[0]?.text?.content ?? "",
       project_problem_statement:
