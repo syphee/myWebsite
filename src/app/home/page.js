@@ -67,13 +67,20 @@ export default function LandingPage() {
   }, [api]);
 
   const [myWorkExperienceData, setMyWorkExperienceData] = useState([]);
+  const [myProjectData, setMyProjectData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getWorkExperienceRows();
+        const fetchWorkExperience = await getWorkExperienceRows();
+        const fetchProjects = await getProjectsRows();
 
-        setMyWorkExperienceData(result);
+        const payload = [fetchWorkExperience, fetchProjects];
+        Promise.all(payload).then((result) => {
+          console.log(result[1]);
+          setMyWorkExperienceData(result[0]);
+          setMyProjectData(result[1]);
+        });
       } catch (error) {
         console.error("Failed to fetch Notion data:", error);
       }
@@ -93,24 +100,6 @@ export default function LandingPage() {
       to: "to-purple-500",
     },
     { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-  ];
-
-  const myProjectData = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
-    {
-      id: 2,
-      label: "My Interests",
-      from: "from-blue-500",
-      to: "to-purple-500",
-    },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 4, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 5, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 6, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 7, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 8, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
   ];
 
   // const myWorkExperienceData = [
@@ -250,48 +239,64 @@ export default function LandingPage() {
           <div className="w-full">
             <Carousel className="" setApi={setApi}>
               <CarouselContent>
-                {myProjectData.map((btn) => (
-                  <CarouselItem
-                    key={btn.id}
-                    className=" basis-2/3 sm:basis-1/2 md:basis-3/7"
-                  >
-                    <Card className="m-5 mx-auto  pt-0 h-full flex flex-col">
-                      <div className="absolute aspect-video bg-black/35" />
-                      <img
-                        src={PortraitPic_sm}
-                        width={800}
-                        height={800}
-                        alt="Event cover"
-                        className="relative z-20 w-100 aspect-video object-cover brightness-60 grayscale dark:brightness-40"
-                      />
-                      <CardAction className="mx-2">
-                        <Badge variant="secondary" className="">
-                          Web
-                        </Badge>
-                      </CardAction>
-                      <CardHeader>
-                        <CardTitle>Design systems meetup</CardTitle>
+                {myWorkExperienceData.length > 0 ? (
+                  <>
+                    {myProjectData.map((res) => (
+                      <CarouselItem
+                        key={res.id}
+                        className=" basis-2/3 sm:basis-1/2 md:basis-3/7"
+                      >
+                        <Card className="m-5 mx-auto  pt-0 h-full flex flex-col">
+                          <div className="absolute aspect-video bg-black/35" />
+                          <img
+                            src={res.project_cover_img}
+                            width={800}
+                            height={800}
+                            alt="Event cover"
+                            className="relative z-20 w-100 aspect-video object-cover brightness-60 grayscale dark:brightness-40"
+                          />
+                          <CardAction className="mx-2">
+                            <Badge variant="secondary" className="">
+                              {res.project_type.map((skill, i) => (
+                                <span key={i} className="">
+                                  {skill.name}
+                                </span>
+                              ))}
+                            </Badge>
+                          </CardAction>
+                          <CardHeader>
+                            <CardTitle>{res.project_name}</CardTitle>
 
-                        <CardDescription className="line-clamp-4">
-                          A practical talk on component APIs, accessibility, and
-                          shipping faster.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardAction className="mx-2 bg-gradient-to-r from-blue-500 to-purple-500 mt-5 mr-5 p-[1px] rounded-lg transition-all ">
-                        <Badge variant="secondary">React</Badge>
-                      </CardAction>
-
-                      <CardFooter className="flex space-x-4">
-                        <Button className="w-full bg-green-500 text-white">
-                          Live
-                        </Button>
-                        <Button className="w-full bg-transparent text-white border">
-                          Source Code
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  </CarouselItem>
-                ))}
+                            <CardDescription className="line-clamp-4">
+                              {res.project_description}
+                            </CardDescription>
+                          </CardHeader>
+                          <div className="flex flex-wrap gap-0 m-0">
+                              {res.project_stack.map((skill, i) => (
+                            <CardAction
+                              key={i}
+                              className="mx-2 bg-gradient-to-r from-blue-500 to-purple-500 mt-5  p-[1px] rounded-lg transition-all "
+                            >
+                              <Badge variant="secondary">{skill.name}</Badge>
+                            </CardAction>
+                          ))}
+                          </div>
+                          
+                          <CardFooter className="flex space-x-4">
+                            <Button className="w-full bg-green-500 text-white">
+                              Live
+                            </Button>
+                            <Button className="w-full bg-transparent text-white border">
+                              Source Code
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      </CarouselItem>
+                    ))}
+                  </>
+                ) : (
+                  <>Loading</>
+                )}
 
                 <CarouselItem className="sm:basis-1/2 md:basis-1/3">
                   <Card className="relative m-5 mx-auto h-full flex flex-col items-center justify-center pt-0 overflow-hidden shadow-md">

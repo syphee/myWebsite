@@ -51,9 +51,9 @@ const getWorkExperienceRows = async () => {
     };
   });
 
-  console.log(data)
+  console.log(data);
 
-  return data
+  return data;
 };
 
 const getProjectsRows = async () => {
@@ -62,10 +62,40 @@ const getProjectsRows = async () => {
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_PROJECTS_DB_ID,
   });
-  const result = response.results[0].properties;
 
-  console.log(result.name);
-  return JSON.stringify(result.name, null, 4);
+  const data = response.results.map((page) => {
+    const result = page.properties;
+    console.log(JSON.stringify(result, null, 4));
+    return {
+      id: result.id.title?.[0]?.text?.content ?? "N/A",
+      project_name:
+        result.project_name.rich_text?.[0]?.text?.content ?? "Untitled",
+       project_type:
+        result.project_type.multi_select?.map(({ id, ...rest }) => rest) ?? [],
+      project_description:
+        result.project_description.rich_text?.[0]?.text?.content ?? "",
+      project_stack:
+        result.project_stack.multi_select?.map(({ id, ...rest }) => rest) ?? [],
+      project_url: result.project_url.url ?? "",
+      project_source_code: result.project_source_code.url ?? "",
+      project_cover_img:
+        result.project_cover_img.files?.[0]?.file?.url ??
+        result.project_cover_img.files?.[0]?.external?.url ??
+        "",
+      project_challenges:
+        result.project_challenges.rich_text?.[0]?.text?.content ?? "",
+      project_problem_statement:
+        result.project_problem_statement.rich_text?.[0]?.text?.content ?? "",
+      project_media:
+        result.project_media.files?.[0]?.file?.url ??
+        result.project_media.files?.[0]?.external?.url ??
+        "",
+    };
+  });
+
+  console.log(data);
+
+  return data;
 };
 
 export { getWorkExperienceRows, getProjectsRows };
