@@ -25,7 +25,8 @@ content
 >> live status [live,WIP,down/not working]
 >> query search by typing
 >> by date updated / created
->> onclick of 1 project, should display description, problem statemment, wireframing, challenges, final product, source code btn, live demo btn
+>> onclick of 1 project, should display description, problem statemment, wireframing, challenges, final product, source code btn, live demo 
+>> should also show live status, if the project is live, down or WIP
 
 functionality
 - work on controller for data handling 
