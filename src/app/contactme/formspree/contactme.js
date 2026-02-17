@@ -1,7 +1,7 @@
 // Make sure to run npm install @formspree/react
 // For more help visit https://formspr.ee/react-help
 import React from 'react';
-import { useForm, ValidationError } from '@formspree/react';
+
 function ContactForm() {
     const [state, handleSubmit] = useForm("xrgwrgnr");
     if (state.succeeded) {
@@ -19,12 +19,7 @@ function ContactForm() {
                 placeholder='Email'
                 required
             />
-            <ValidationError
-                prefix="Email"
-                field="email"
-                errors={state.errors}
-            />
-
+           
             </div>
             <div className='flex flex-col'>
            
@@ -35,11 +30,7 @@ function ContactForm() {
                 placeholder='Message'
                 required
             />
-            <ValidationError
-                prefix="Message"
-                field="message"
-                errors={state.errors}
-            />
+          
 
             </div>
             
