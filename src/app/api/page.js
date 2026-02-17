@@ -116,6 +116,7 @@ export default function LandingPage() {
             <thead className="bg-gray-50 text-gray-600 font-bold uppercase tracking-wider border-b">
               <tr>
                 <th className="p-4">Project & Type</th>
+                <th className="p-4">Live Status</th>
                 <th className="p-4">Description</th>
                 <th className="p-4">Tech Stack</th>
                 <th className="p-4">Context (Problem/Challenges)</th>
@@ -145,6 +146,12 @@ export default function LandingPage() {
                           </span>
                         ))}
                       </div>
+                    </td>
+
+                    <td className="p-4 min-w-[200px]">
+                      <p className={`text-${data.project_live_status_colour.toLowerCase()}-600 `}>
+                        {data.project_live_status}
+                      </p>
                     </td>
 
                     {/* Description */}
@@ -260,6 +267,8 @@ export default function LandingPage() {
                 <th className="p-4">Name</th>
                 <th className="p-4">Logo</th>
                 <th className="p-4">Type</th>
+                <th className="p-4">Gradient start</th>
+                <th className="p-4">Gradient end</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -280,6 +289,8 @@ export default function LandingPage() {
                     />
                     </td>
                     <td className="p-4 text-gray-600">{job.type}</td>
+                    <td className="p-4 text-gray-600">{job.from}</td>
+                    <td className="p-4 text-gray-600">{job.to}</td>
                   </tr>
                 ))
               ) : (

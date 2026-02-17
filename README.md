@@ -9,6 +9,7 @@ Migratiom
 > 
 
 content
+-add blur fade [https://magicui.design/docs/components/blur-fade]
 - make up self intro
 - compile work experiences and projects
 - maybe work on adventure machine last, inspo: [ref:https://github.com/kmiloarguello/adventure-machine]

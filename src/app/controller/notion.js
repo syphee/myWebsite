@@ -70,6 +70,10 @@ const getProjectsRows = async () => {
       id: result.id.title?.[0]?.text?.content ?? "N/A",
       project_name:
         result.project_name.rich_text?.[0]?.text?.content ?? "Untitled",
+        project_live_status:
+        result.project_live_status.select.name ?? "Untitled",
+        project_live_status_colour:
+        result.project_live_status.select.color ?? "gray",
        project_type:
         result.project_type.multi_select?.map(({ id, ...rest }) => rest) ?? [],
       project_description:
@@ -116,6 +120,10 @@ const getTechStacksRows = async () => {
         null,
       type:
         result.type.rich_text?.[0]?.text?.content ?? "",
+        from:
+        result.from.rich_text?.[0]?.text?.content ?? "",
+        to:
+        result.to.rich_text?.[0]?.text?.content ?? "",
 
     };
   });
