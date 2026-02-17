@@ -2,20 +2,29 @@
 "use client";
 
 import { useState } from "react";
-import { getProjectsRows, getWorkExperienceRows } from "../controller/notion";
+import Image from "next/image";
+
+import { getProjectsRows, getWorkExperienceRows,getTechStacksRows } from "../controller/notion";
 
 export default function LandingPage() {
   const [notionWorkExperience, setNotionWorkExperience] = useState([]);
+  const [notionTechStacks, setNotionTechStacks] = useState([]);
+  
   const [notionProjects, setNotionProjects] = useState([]);
 
-  const updateWorkExperience = async () => {
+  const getWorkExperience = async () => {
     const data = await getWorkExperienceRows();
     setNotionWorkExperience(data);
   };
 
-  const updateProjects = async () => {
+  const getProjects = async () => {
     const data = await getProjectsRows();
     setNotionProjects(data);
+  };
+
+  const getTechStacks = async () => {
+    const data = await getTechStacksRows();
+    setNotionTechStacks(data);
   };
 
   return (
@@ -27,9 +36,9 @@ export default function LandingPage() {
       {/* WORK EXPERIENCE SECTION */}
       <section>
         <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-xl font-semibold">Work Experience</h2>
+          <h2 className="text-xl font-semibold text-black">Work Experience</h2>
           <button
-            onClick={updateWorkExperience}
+            onClick={getWorkExperience}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
           >
             Fetch Experience
@@ -93,9 +102,9 @@ export default function LandingPage() {
       {/* PROJECTS SECTION */}
       <section>
         <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-xl font-semibold">Projects</h2>
+          <h2 className="text-xl font-semibold text-black">Projects</h2>
           <button
-            onClick={updateProjects}
+            onClick={getProjects}
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
           >
             Fetch Projects
@@ -224,6 +233,62 @@ export default function LandingPage() {
                 <tr>
                   <td colSpan="6" className="p-12 text-center text-gray-400">
                     No project data loaded yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* TECH STACKS SECTION */}
+      <section>
+        <div className="flex items-center gap-4 mb-4">
+          <h2 className="text-xl font-semibold text-black">Tech Stacks</h2>
+          <button
+            onClick={getTechStacks}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          >
+            Fetch Tech Stacks
+          </button>
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+          <table className="w-full text-left border-collapse bg-white text-sm">
+            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+              <tr>
+                <th className="p-4">Name</th>
+                <th className="p-4">Logo</th>
+                <th className="p-4">Type</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {notionTechStacks?.length > 0 ? (
+                notionTechStacks.map((job,index) => (
+                  <tr
+                    key={index}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="p-4 text-gray-600">{job.id}</td>
+                    <td className="p-4 font-semibold text-gray-900">
+                      <Image
+                      src={job.logo}
+                      width={50}
+                      height={50}
+                      className=" "
+                      alt="My portrait photo-lg"
+                    />
+                    </td>
+                    <td className="p-4 text-gray-600">{job.type}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="p-8 text-center text-gray-400 italic"
+                  >
+                    No experience data found.
                   </td>
                 </tr>
               )}

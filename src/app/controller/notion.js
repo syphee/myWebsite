@@ -98,4 +98,34 @@ const getProjectsRows = async () => {
   return data;
 };
 
-export { getWorkExperienceRows, getProjectsRows };
+const getTechStacksRows = async () => {
+  const notion = new Client({ auth: process.env.NOTION_API_KEY });
+
+  const response = await notion.dataSources.query({
+    data_source_id: process.env.NOTION_TECH_STACK_DB_ID ,
+  });
+
+  const data = response.results.map((page) => {
+    const result = page.properties;
+    console.log(JSON.stringify(result, null, 4));
+    return {
+      id: result.id.title?.[0]?.text?.content ?? "N/A",
+      logo:
+        result.logo.files?.[0]?.file?.url ??
+        result.logo.files?.[0]?.external?.url ??
+        null,
+      type:
+        result.type.rich_text?.[0]?.text?.content ?? "",
+
+    };
+  });
+
+  console.log(data);
+
+  return data;
+};
+
+
+
+
+export { getWorkExperienceRows, getProjectsRows,getTechStacksRows };
