@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
 import { LightRays } from "@/registry/magicui/light-rays";
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -104,7 +105,7 @@ export default function LandingPage() {
     };
 
     fetchData();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   const [visible, setVisible] = useState(false);
 
@@ -136,25 +137,27 @@ export default function LandingPage() {
   //   { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
   //   { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
   // ];
+  const router = useRouter();
 
   const LiveStatusDot = ({ status = "" }) => {
-  const statusClasses = {
-    LIVE: "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]",
-    DOWN: "bg-red-500",
-    WIP: "bg-yellow-500",
-    default:"bg-gray-900"
-  };
+    const statusClasses = {
+      LIVE: "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]",
+      DOWN: "bg-red-500",
+      WIP: "bg-yellow-500",
+      default: "bg-gray-900",
+    };
 
-  return (
-    <span className="relative flex h-2 w-2 mr-1">
-      {/* Optional Pulsing Animation for 'online' */}
-      {status === "online" && (
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-      )}
-      <span className={`relative inline-flex rounded-full h-2 w-2 ${statusClasses[status]}`}></span>
-    </span>
-  );
-};
+    return (
+      <span className="relative flex h-2 w-2 mr-1">
+        {status === "online" && (
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        )}
+        <span
+          className={`relative inline-flex rounded-full h-2 w-2 ${statusClasses[status]}`}
+        ></span>
+      </span>
+    );
+  };
 
   return (
     <main className="h-screen">
@@ -279,19 +282,27 @@ export default function LandingPage() {
                                     variant="secondary"
                                     className="rounded-md"
                                   >
-                                    <LiveStatusDot  status={res.project_live_status}/>
+                                    <LiveStatusDot
+                                      status={res.project_live_status}
+                                    />
                                     {res.project_live_status}
                                   </Badge>
                                 </div>
                               </div>
 
                               <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
-
-                              <img
-                                src={res.project_cover_img}
-                                alt={res.project_name}
-                                className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
-                              />
+                              <a
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  router.push(`/projects/${res.project_name}`);
+                                }}
+                              >
+                                <img
+                                  src={res.project_cover_img}
+                                  alt={res.project_name}
+                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
+                                />
+                              </a>
 
                               <div className="absolute bottom-3 left-3 z-20 flex gap-1">
                                 {res.project_type.map((skill, i) => (
@@ -361,11 +372,18 @@ export default function LandingPage() {
                       ))}
                       <CarouselItem className="sm:basis-1/2 md:basis-1/3">
                         <Card className="relative m-5 mx-auto h-full flex flex-col items-center justify-center pt-0 overflow-hidden shadow-md">
-                          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-indigo-500/20 to-pink-500/20">
-                            <span className=" text-slate-900 dark:text-white">
-                              <a>View Projects overview</a>
-                            </span>
-                          </div>
+                          <a
+                            className="cursor-pointer"
+                            onClick={() => {
+                              router.push(`/projects/`);
+                            }}
+                          >
+                            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-indigo-500/20 to-pink-500/20">
+                              <span className=" text-slate-900 dark:text-white">
+                                View Projects overview
+                              </span>
+                            </div>
+                          </a>
                         </Card>
                       </CarouselItem>
                     </>

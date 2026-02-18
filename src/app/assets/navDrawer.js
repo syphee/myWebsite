@@ -5,8 +5,7 @@ import "../assets/home.css";
 
 import { useState, useEffect } from "react";
 
-export default function NavDrawer({ miniTitle, title,pretext,typingContent }) {
-  const [visible, setVisible] = useState(true);
+export default function NavDrawer({ miniTitle, title,pretext,typingContent,visible="true"}) {
 
   const words = typingContent ? typingContent : [];
 

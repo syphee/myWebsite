@@ -9,6 +9,7 @@ import Footer from "../assets/footer";
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
 import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useState, useEffect } from "react";
 import NavDrawer from "../assets/navDrawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -26,6 +27,7 @@ import { DotPattern } from "@/registry/magicui/dot-pattern";
 import { LightRays } from "@/registry/magicui/light-rays";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -43,6 +45,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { getProjectsRows } from "../controller/notion";
 
 export default function LandingPage() {
   const { theme } = useTheme();
@@ -52,6 +55,7 @@ export default function LandingPage() {
   function showNav() {
     setVisible(true);
   }
+  const router = useRouter();
 
   const [api, setApi] = useState();
 
@@ -71,54 +75,44 @@ export default function LandingPage() {
     });
   }, [api]);
 
-  const [visible, setVisible] = useState(false);
+  const [myProjectData, setMyProjectData] = useState([]);
 
-  const introSectionButtons = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
-    {
-      id: 2,
-      label: "My Interests",
-      from: "from-blue-500",
-      to: "to-purple-500",
-    },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchProjects = await getProjectsRows();
 
-  const myProjectData = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
-    {
-      id: 2,
-      label: "My Interests",
-      from: "from-blue-500",
-      to: "to-purple-500",
-    },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 4, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 5, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 6, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 7, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 8, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-  ];
+        const payload = [fetchProjects];
+        Promise.all(payload).then((result) => {
+          setMyProjectData(result[0]);
+        });
+      } catch (error) {
+        console.error("Failed to fetch Notion data:", error);
+      }
+    };
 
-  const myTechStacks = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
-    {
-      id: 2,
-      label: "My Interests",
-      from: "from-blue-500",
-      to: "to-purple-500",
-    },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 4, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 5, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 6, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 7, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 8, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 9, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-    { id: 10, label: "Education", from: "from-blue-500", to: "to-purple-500" },
-  ];
+    fetchData();
+  }, []);
+
+  const LiveStatusDot = ({ status = "" }) => {
+    const statusClasses = {
+      LIVE: "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]",
+      DOWN: "bg-red-500",
+      WIP: "bg-yellow-500",
+      default: "bg-gray-900",
+    };
+
+    return (
+      <span className="relative flex h-2 w-2 mr-1">
+        {status === "online" && (
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        )}
+        <span
+          className={`relative inline-flex rounded-full h-2 w-2 ${statusClasses[status]}`}
+        ></span>
+      </span>
+    );
+  };
 
   return (
     <main className="h-screen">
@@ -171,9 +165,40 @@ export default function LandingPage() {
           <div className="w-full ">
             <Tabs defaultValue="web_app" className="max-w-7xl">
               <TabsList>
-                <TabsTrigger value="web_app">Web App</TabsTrigger>
-                <TabsTrigger value="tools" disabled>Tools</TabsTrigger>
-                <TabsTrigger value="music_production" disabled>
+                <TabsTrigger
+                  value="web_app"
+                  disabled={
+                    myProjectData.filter((res, index) =>
+                      res.project_type.some((type) =>
+                        type.name.toLowerCase().includes(["web"]),
+                      ),
+                    ).length == 0
+                  }
+                >
+                  Web App
+                </TabsTrigger>
+                <TabsTrigger
+                  value="tools"
+                  disabled={
+                    myProjectData.filter((res, index) =>
+                      res.project_type.some((type) =>
+                        type.name.toLowerCase().includes(["tools"]),
+                      ),
+                    ).length == 0
+                  }
+                >
+                  Tools
+                </TabsTrigger>
+                <TabsTrigger
+                  value="music_production"
+                  disabled={
+                    myProjectData.filter((res, index) =>
+                      res.project_type.some((type) =>
+                        type.name.toLowerCase().includes(["music"]),
+                      ),
+                    ).length == 0
+                  }
+                >
                   Music Production
                 </TabsTrigger>
               </TabsList>
@@ -182,50 +207,350 @@ export default function LandingPage() {
                 value="web_app"
                 className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl"
               >
-                {myProjectData.map((btn) => (
-                  <div key={btn.id} className="w-full">
-                    {/* 2. Ensure Card is a flex container for the Image + Content */}
-                    <Card className="m-5 mx-auto  pt-0 h-full flex flex-col">
-                      <div className="absolute aspect-video bg-black/35" />
-                      <img
-                        src={PortraitPic_sm}
-                        width={800}
-                        height={800}
-                        alt="Event cover"
-                        className="relative z-20 w-100 aspect-video object-cover brightness-60 grayscale dark:brightness-40"
-                      />
-                      <CardAction className="mx-2">
-                        <Badge variant="secondary" className="">
-                          Web
-                        </Badge>
-                      </CardAction>
-                      <CardHeader>
-                        <CardTitle>Design systems meetup</CardTitle>
+                {myProjectData.length > 0 ? (
+                  <>
+                    {myProjectData
+                      .filter((res, index) =>
+                        res.project_type.some((type) =>
+                          type.name.toLowerCase().includes(["web"]),
+                        ),
+                      )
+                      .map((res) => (
+                        <div key={res.id} className="w-full">
+                          {res.project_type.name}
+                          {/* 2. Ensure Card is a flex container for the Image + Content */}
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <div className="absolute top-3 left-3 z-30">
+                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
+                                  <Badge
+                                    variant="secondary"
+                                    className="rounded-md"
+                                  >
+                                    <LiveStatusDot
+                                      status={res.project_live_status}
+                                    />
+                                    {res.project_live_status}
+                                  </Badge>
+                                </div>
+                              </div>
 
-                        <CardDescription className="line-clamp-4">
-                          A practical talk on component APIs, accessibility, and
-                          shipping faster.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardAction className="mx-2 bg-gradient-to-r from-blue-500 to-purple-500 mt-5 mr-5 p-[1px] rounded-lg transition-all ">
-                        <Badge variant="secondary">React</Badge>
-                      </CardAction>
+                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                              <a
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  router.push(`/projects/${res.project_name}`);
+                                }}
+                              >
+                                <img
+                                  src={res.project_cover_img}
+                                  alt={res.project_name}
+                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
+                                />
+                              </a>
 
-                      <CardFooter className="flex space-x-4">
-                        <Button className="w-full bg-green-500 text-white">
-                          Live
-                        </Button>
-                        <Button className="w-full bg-transparent text-white border">
-                          Source Code
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                ))}
+                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
+                                {res.project_type.map((skill, i) => (
+                                  <Badge
+                                    key={i}
+                                    variant="secondary"
+                                    className="bg-white/20 backdrop-blur-md border-none text-white"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.project_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.project_description}
+                              </CardDescription>
+                            </CardHeader>
+
+                            {/* Project Tech Stack */}
+                            <div className="px-4 pb-4 flex flex-wrap gap-1">
+                              {res.project_stack.map((skill, i) => (
+                                <div key={i} className=" p-[1px] rounded-full">
+                                  <Badge
+                                    variant="outline"
+                                    className="bg-background  border-none"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                </div>
+                              ))}
+                            </div>
+
+                            <CardFooter className="flex space-x-4 mt-auto">
+                              <Button
+                                asChild
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <a
+                                  href={res.project_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Live
+                                </a>
+                              </Button>
+                              <Button
+                                asChild
+                                variant="outline"
+                                className="w-full border-white/20"
+                              >
+                                <a
+                                  href={res.project_source_code}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Source Code
+                                </a>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </div>
+                      ))}
+                  </>
+                ) : (
+                  <Skeleton className="h-[600px] w-[600px]" />
+                )}
               </TabsContent>
 
-              <TabsContent value="tools">b</TabsContent>
-              <TabsContent value="music_production">c</TabsContent>
+              <TabsContent value="tools"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl">
+                {myProjectData.length > 0 ? (
+                  <>
+                    {myProjectData
+                      .filter((res, index) =>
+                        res.project_type.some((type) =>
+                          type.name.toLowerCase().includes(["tools"]),
+                        ),
+                      )
+                      .map((res) => (
+                        <div key={res.id} className="w-full">
+                          {res.project_type.name}
+                          {/* 2. Ensure Card is a flex container for the Image + Content */}
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <div className="absolute top-3 left-3 z-30">
+                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
+                                  <Badge
+                                    variant="secondary"
+                                    className="rounded-md"
+                                  >
+                                    <LiveStatusDot
+                                      status={res.project_live_status}
+                                    />
+                                    {res.project_live_status}
+                                  </Badge>
+                                </div>
+                              </div>
+
+                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                              <a
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  router.push(`/projects/${res.project_name}`);
+                                }}
+                              >
+                                <img
+                                  src={res.project_cover_img}
+                                  alt={res.project_name}
+                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
+                                />
+                              </a>
+
+                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
+                                {res.project_type.map((skill, i) => (
+                                  <Badge
+                                    key={i}
+                                    variant="secondary"
+                                    className="bg-white/20 backdrop-blur-md border-none text-white"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.project_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.project_description}
+                              </CardDescription>
+                            </CardHeader>
+
+                            {/* Project Tech Stack */}
+                            <div className="px-4 pb-4 flex flex-wrap gap-1">
+                              {res.project_stack.map((skill, i) => (
+                                <div key={i} className=" p-[1px] rounded-full">
+                                  <Badge
+                                    variant="outline"
+                                    className="bg-background  border-none"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                </div>
+                              ))}
+                            </div>
+
+                            <CardFooter className="flex space-x-4 mt-auto">
+                              <Button
+                                asChild
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <a
+                                  href={res.project_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Live
+                                </a>
+                              </Button>
+                              <Button
+                                asChild
+                                variant="outline"
+                                className="w-full border-white/20"
+                              >
+                                <a
+                                  href={res.project_source_code}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Source Code
+                                </a>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </div>
+                      ))}
+                  </>
+                ) : (
+                  <Skeleton className="h-[600px] w-[600px]" />
+                )}
+              </TabsContent>
+              <TabsContent value="music_production"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl">
+                {myProjectData.length > 0 ? (
+                  <>
+                    {myProjectData
+                      .filter((res, index) =>
+                        res.project_type.some((type) =>
+                          type.name.toLowerCase().includes(["music"]),
+                        ),
+                      )
+                      .map((res) => (
+                        <div key={res.id} className="w-full">
+                          {res.project_type.name}
+                          {/* 2. Ensure Card is a flex container for the Image + Content */}
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <div className="absolute top-3 left-3 z-30">
+                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
+                                  <Badge
+                                    variant="secondary"
+                                    className="rounded-md"
+                                  >
+                                    <LiveStatusDot
+                                      status={res.project_live_status}
+                                    />
+                                    {res.project_live_status}
+                                  </Badge>
+                                </div>
+                              </div>
+
+                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                              <a
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  router.push(`/projects/${res.project_name}`);
+                                }}
+                              >
+                                <img
+                                  src={res.project_cover_img}
+                                  alt={res.project_name}
+                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
+                                />
+                              </a>
+
+                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
+                                {res.project_type.map((skill, i) => (
+                                  <Badge
+                                    key={i}
+                                    variant="secondary"
+                                    className="bg-white/20 backdrop-blur-md border-none text-white"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.project_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.project_description}
+                              </CardDescription>
+                            </CardHeader>
+
+                            {/* Project Tech Stack */}
+                            <div className="px-4 pb-4 flex flex-wrap gap-1">
+                              {res.project_stack.map((skill, i) => (
+                                <div key={i} className=" p-[1px] rounded-full">
+                                  <Badge
+                                    variant="outline"
+                                    className="bg-background  border-none"
+                                  >
+                                    {skill.name}
+                                  </Badge>
+                                </div>
+                              ))}
+                            </div>
+
+                            <CardFooter className="flex space-x-4 mt-auto">
+                              <Button
+                                asChild
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <a
+                                  href={res.project_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Live
+                                </a>
+                              </Button>
+                              <Button
+                                asChild
+                                variant="outline"
+                                className="w-full border-white/20"
+                              >
+                                <a
+                                  href={res.project_source_code}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Source Code
+                                </a>
+                              </Button>
+                            </CardFooter>
+                          </Card>
+                        </div>
+                      ))}
+                  </>
+                ) : (
+                  <Skeleton className="h-[600px] w-[600px]" />
+                )}
+              </TabsContent>
             </Tabs>
           </div>
         </div>
