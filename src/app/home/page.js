@@ -409,6 +409,7 @@ export default function LandingPage() {
         </section>
       </BlurFade>
 
+
       <BlurFade delay={0.25} inView>
         <section className="w-full my-10">
           <div className="max-w-6xl mx-auto ">
