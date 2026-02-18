@@ -88,7 +88,7 @@ export default function LandingPage() {
     const fetchData = async () => {
       try {
         const fetchWorkExperience = await getWorkExperienceRows();
-        const fetchProjects = await getProjectsRows();
+        const fetchProjects = await getProjectsRows({limit_size:4});
         const fetchTechStacks = await getTechStacksRows();
 
         const payload = [fetchWorkExperience, fetchProjects, fetchTechStacks];
@@ -267,9 +267,13 @@ export default function LandingPage() {
             <div className="w-full">
               <Carousel className="h-full" setApi={setApi}>
                 <CarouselContent className="p-5 mb-5">
-                  {myWorkExperienceData.length > 0 ? (
+                  
+                  {myProjectData.length > 0 ? (
                     <>
-                      {myProjectData.map((res) => (
+
+                  
+                      {myProjectData.map((res,index) => (
+                        
                         <CarouselItem
                           key={res.id}
                           className="basis-2/3 sm:basis-1/2 md:basis-1/3 "
@@ -396,9 +400,9 @@ export default function LandingPage() {
                   <CarouselNext />
                 </div>
 
-                <div className="text-muted-foreground py-2 text-center text-sm">
-                  {current} of {count}
-                </div>
+                {/* <div className="text-muted-foreground py-2 text-center text-sm">
+                  {current} of {myProjectData.length}
+                </div> */}
               </Carousel>
             </div>
           </div>

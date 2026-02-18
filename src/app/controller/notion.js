@@ -56,11 +56,12 @@ const getWorkExperienceRows = async () => {
   return data;
 };
 
-const getProjectsRows = async () => {
+const getProjectsRows = async ({ limit_size = 100 } = {}) => {
   const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_PROJECTS_DB_ID,
+    page_size: limit_size,
   });
 
   const data = response.results.map((page) => {
