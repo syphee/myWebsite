@@ -4,12 +4,16 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import { getProjectsRows, getWorkExperienceRows,getTechStacksRows } from "../controller/notion";
+import {
+  getProjectsRows,
+  getWorkExperienceRows,
+  getTechStacksRows,
+} from "../controller/notion";
 
 export default function LandingPage() {
   const [notionWorkExperience, setNotionWorkExperience] = useState([]);
   const [notionTechStacks, setNotionTechStacks] = useState([]);
-  
+
   const [notionProjects, setNotionProjects] = useState([]);
 
   const getWorkExperience = async () => {
@@ -25,6 +29,13 @@ export default function LandingPage() {
   const getTechStacks = async () => {
     const data = await getTechStacksRows();
     setNotionTechStacks(data);
+  };
+
+  const statusColors = {
+    green: "text-green-600",
+    red: "text-red-600",
+    yellow: "text-yellow-600",
+    blue: "text-blue-600",
   };
 
   return (
@@ -52,7 +63,7 @@ export default function LandingPage() {
                 <th className="p-4">Job Name</th>
                 <th className="p-4">Role</th>
                 <th className="p-4">Dates</th>
-                
+
                 <th className="p-4">Skills</th>
               </tr>
             </thead>
@@ -149,7 +160,13 @@ export default function LandingPage() {
                     </td>
 
                     <td className="p-4 min-w-[200px]">
-                      <p className={`text-${data.project_live_status_colour.toLowerCase()}-600 `}>
+                      <p
+                        className={
+                          statusColors[
+                            data.project_live_status_colour.toLowerCase()
+                          ] || "text-gray-600"
+                        }
+                      >
                         {data.project_live_status}
                       </p>
                     </td>
@@ -273,7 +290,7 @@ export default function LandingPage() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {notionTechStacks?.length > 0 ? (
-                notionTechStacks.map((job,index) => (
+                notionTechStacks.map((job, index) => (
                   <tr
                     key={index}
                     className="hover:bg-gray-50 transition-colors"
@@ -281,12 +298,12 @@ export default function LandingPage() {
                     <td className="p-4 text-gray-600">{job.id}</td>
                     <td className="p-4 font-semibold text-gray-900">
                       <Image
-                      src={job.logo}
-                      width={50}
-                      height={50}
-                      className=" "
-                      alt="My portrait photo-lg"
-                    />
+                        src={job.logo}
+                        width={50}
+                        height={50}
+                        className=" "
+                        alt="My portrait photo-lg"
+                      />
                     </td>
                     <td className="p-4 text-gray-600">{job.type}</td>
                     <td className="p-4 text-gray-600">{job.from}</td>

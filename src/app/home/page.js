@@ -503,12 +503,15 @@ export default function LandingPage() {
                         alt="My portrait photo-lg"
                       />
                       <div className="w-full">
-                        <CardTitle className="text-lg my-3">
+                        <CardTitle className="text-lg mt-3">
                           {res.job_name}
                         </CardTitle>
-
-                        <span className="opacity-50">{res.job_company}</span>
-                        <CardDescription className="line-clamp-4 mt-3">
+                      
+                        <span className="opacity-50 mt-3">{res.job_company}</span>
+                        <CardDescription className="line-clamp-4 ">
+                          {res.job_role}
+                        </CardDescription>
+                        <CardDescription className="line-clamp-4 mt-5">
                           {res.job_description}
                         </CardDescription>
 
