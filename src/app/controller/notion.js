@@ -83,6 +83,7 @@ const getProjectsRows = async ({ limit_size = 100 } = {}) => {
         result.project_stack.multi_select?.map(({ id, ...rest }) => rest) ?? [],
       project_url: result.project_url.url ?? "",
       project_source_code: result.project_source_code.url ?? "",
+      project_video_cover:result.project_video_cover.url ?? "",
       project_cover_img:
         result.project_cover_img.files?.[0]?.file?.url ??
         result.project_cover_img.files?.[0]?.external?.url ??
@@ -133,6 +134,7 @@ const getProjectInfoRows = async ({params =""}) => {
         result.project_stack.multi_select?.map(({ id, ...rest }) => rest) ?? [],
       project_url: result.project_url.url ?? "",
       project_source_code: result.project_source_code.url ?? "",
+      project_video_cover:result.project_video_cover.url ?? "",
       project_cover_img:
         result.project_cover_img.files?.[0]?.file?.url ??
         result.project_cover_img.files?.[0]?.external?.url ??

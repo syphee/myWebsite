@@ -117,6 +117,9 @@ export default function LandingPage() {
   return (
     <main className="h-screen">
       <HomeBtn />
+      <div className="fixed inset-0 -z-10 h-screen w-screen">
+        <LightRays className="h-screen" />
+      </div>
 
       {/* https://www.framer.com/motion/examples/ */}
       {/* https://docs.pmnd.rs/react-three-fiber/getting-started/introduction */}
@@ -128,13 +131,7 @@ export default function LandingPage() {
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
-            <Image
-              src={PortraitPic_sm}
-              width={400}
-              height={400}
-              className="bg-blue-500 m-auto mr-5 p-auto hidden lg:block"
-              alt="My portrait photo-sm"
-            />
+           
             <NavDrawer
               className=""
               miniTitle={"My"}
@@ -145,7 +142,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <LightRays />
       </section>
 
       {/* Work Experiences */}

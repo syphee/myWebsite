@@ -1,22 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useParams } from "next/navigation";
-import { Bars3Icon } from "@heroicons/react/20/solid";
+
 import { BlurFade } from "@/registry/magicui/blur-fade";
-
-import { BorderBeam } from "@/registry/magicui/border-beam";
-import { Skeleton } from "@/components/ui/skeleton";
-
-import PortraitPic_sm from "../images/6316674175816372309.png";
-import PortraitPic_lg from "../images/6316674175816372311.png";
-import { Separator } from "@/components/ui/separator";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+  AnimatedSpan,
+  Terminal,
+  TypingAnimation,
+} from "@/components/ui/terminal";
 
-import Link from "next/link";
-import Image from "next/image";
 import Header from "../../assets/header";
 import Footer from "../../assets/footer";
 
@@ -32,6 +24,7 @@ import { useTheme } from "next-themes";
 
 import { LightRays } from "@/registry/magicui/light-rays";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Spinner } from "@/components/ui/spinner";
 
 import {
   Card,
@@ -78,7 +71,7 @@ export default function LandingPage() {
         }
 
         console.log(fetchProjects);
-        setMyProjectData(fetchProjects);
+        setMyProjectData(fetchProjects[0]);
       } catch (error) {
         console.error("Failed to fetch Notion data:", error);
         router.push("/projects"); // Fallback on error
@@ -126,6 +119,13 @@ export default function LandingPage() {
     );
   };
 
+  const statusStyles = {
+    green: "bg-green-500/20 text-green-400 border-green-500/30",
+    red: "bg-red-500/20 text-red-400 border-red-500/30",
+    yellow: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+    blue: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  };
+
   return (
     <main className="h-screen">
       <div className="fixed inset-0 -z-10 h-screen w-screen">
@@ -145,13 +145,47 @@ export default function LandingPage() {
           {/* Content Layer */}
           <div className="z-10 h-auto m-auto w-full max-w-6xl">
             <div className="flex flex-wrap flex-rows flex-spacing-5">
+              <div className="absolute inset-0 -z-10 bg-black-500/50 blur-[80px] rounded-full scale-50" />
+
               <NavDrawer
-                className=""
+                className="relative" // Ensure parent is relative
                 miniTitle={""}
                 pretext={"> "}
-                title={""}
+                title={
+                  myProjectData.project_video_cover ? (
+                    <iframe
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        width: "100vw",
+                        height: "56.25vw", // 16:9 height relative to viewport width
+                        minHeight: "100vh",
+                        minWidth: "177.77vh", // 16:9 width relative to viewport height
+                        transform: "translate(-50%, -50%)",
+                        pointerEvents: "none",
+                      }}
+                      className="bg-purple-600/30  absolute inset-0 -z-0 h-screen w-screen object-cover opacity-5 absolute shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5"
+                      src={`https://www.youtube.com/embed/${myProjectData.project_video_cover}?autoplay=1&mute=1&loop=1&playlist=${myProjectData.project_video_cover}&controls=0&modestbranding=1&rel=0`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    ></iframe>
+                  ) : myProjectData.project_cover_img ? (
+                    <img
+                      src={myProjectData.project_cover_img}
+                      className="absolute inset-0 -z-0 h-screen w-screen object-cover opacity-20 absolute"
+                      alt="background"
+                    />
+                  ) : (
+                    <></>
+                  )
+                }
                 typingContent={[JSON.stringify(params)]}
                 visible={false}
+                isLooping={false}
               />
             </div>
           </div>
@@ -160,106 +194,149 @@ export default function LandingPage() {
 
       {/* My projects */}
       <BlurFade delay={0.25} inView>
-          <div className="relative min-h-screen  text-white overflow-hidden ">
-      
-      {/* 1. Ethereal Background Glows (The "Light" behind the glass) */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full" />
-      <div className="absolute bottom-[20%] right-[-5%] w-[400px] h-[400px] bg-blue-600/10 blur-[100px] rounded-full" />
+        <div className="relative min-h-screen  text-white overflow-hidden ">
+          {/* 1. Ethereal Background Glows (The "Light" behind the glass) */}
 
+          <div className="relative z-10 pb-20">
+            {/* 2. HERO SECTION - Glass Card Header */}
+            <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
+              <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+                {myProjectData.project_name}
+              </h1>
+              <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
+                {myProjectData.project_description}
+              </p>
 
-   <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full" />
-
-
-   
-      <div className="relative z-10 pb-20">
-        {/* 2. HERO SECTION - Glass Card Header */}
-        <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
-          <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs uppercase tracking-[0.2em] text-purple-300">
-             Project Case Study
-          </div>
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
-            {myProjectData.project_name}
-          </h1>
-          <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
-            {myProjectData.project_description}
-          </p>
-
-          {/* Metadata Row - Glass Pill */}
-          <div className="flex flex-wrap justify-center gap-8 mt-16 p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
-            <div className="text-center px-4">
-              <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">Platform</p>
-              <div className="flex gap-2 justify-center">
-                test
+              {/* Metadata Row - Glass Pill */}
+              <div className="flex flex-wrap justify-center gap-8 mt-16 p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+                <div className="text-center px-4">
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">
+                    Platform
+                  </p>
+                  <div className="flex gap-2 justify-center">
+                    {myProjectData?.project_type?.length > 0 ? (
+                      myProjectData.project_type.map((skill, i) => (
+                        <Badge
+                          key={i}
+                          variant="secondary"
+                          className="bg-white/20 backdrop-blur-md border-none text-white"
+                        >
+                          {skill.name}
+                        </Badge>
+                      ))
+                    ) : (
+                      <Spinner />
+                    )}
+                  </div>
+                </div>
+                <div className="w-px h-12 bg-white/10 hidden md:block" />
+                <div className="text-center px-4">
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">
+                    Stack
+                  </p>
+                  <div className="flex gap-2 justify-center">
+                    {myProjectData?.project_type?.length > 0 ? (
+                      myProjectData.project_stack.map((skill, i) => (
+                        <Badge
+                          key={i}
+                          variant="secondary"
+                          className="bg-white/20 backdrop-blur-md border-none text-white"
+                        >
+                          {skill.name}
+                        </Badge>
+                      ))
+                    ) : (
+                      <Spinner />
+                    )}
+                  </div>
+                </div>
+                <div className="w-px h-12 bg-white/10 hidden md:block" />
+                <div className="text-center px-4">
+                  <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">
+                    Status
+                  </p>
+                  {myProjectData?.project_live_status ? (
+                    <Badge
+                      className={`${statusStyles[myProjectData.project_live_status_colour.toLowerCase()] || statusStyles.blue} backdrop-blur-md`}
+                    >
+                      {myProjectData.project_live_status}
+                    </Badge>
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="w-px h-12 bg-white/10 hidden md:block" />
-            <div className="text-center px-4">
-              <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">Stack</p>
-              <div className="flex gap-2 justify-center">
-                test
+            </section>
+
+            {/* 3. FLOATING IMAGE - Border Glow Effect */}
+
+            {/* 4. CONTENT CARDS - High Blur Glass */}
+            <article className="max-w-4xl mx-auto px-6 space-y-12">
+              <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
+                <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 text-purple-400 text-lg">
+                    01
+                  </div>
+                  Problem Statement
+                </h2>
+                <p className="text-lg leading-relaxed text-zinc-400">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
               </div>
-            </div>
-            <div className="w-px h-12 bg-white/10 hidden md:block" />
-            <div className="text-center px-4">
-              <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">Status</p>
-              <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 backdrop-blur-md">
-                {myProjectData.project_live_status}
-              </Badge>
-            </div>
+
+              <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
+                <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-400 text-lg">
+                    02
+                  </div>
+                  Challenges & Solutions
+                </h2>
+                <p className="text-lg leading-relaxed text-zinc-400">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+              </div>
+
+              {/* 5. CTA - The "Final Glow" Button */}
+              <section className="pt-20 text-center">
+                <div className="inline-flex gap-4 p-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                  <Button
+                    size="xl"
+                    asChild
+                    variant="ghost"
+                    className="rounded-full px-10 hover:bg-white/10"
+                  >
+                    <a href={myProjectData.project_source_code}>View Source</a>
+                  </Button>
+                  <Button
+                    size="xl"
+                    asChild
+                    className="rounded-full px-10 bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+                  >
+                    <a href={myProjectData.project_url}>Live Project</a>
+                  </Button>
+                </div>
+              </section>
+            </article>
           </div>
-        </section>
-
-        {/* 3. FLOATING IMAGE - Border Glow Effect */}
-        <section className="max-w-6xl mx-auto px-6 mb-32 group">
-          <div className="relative rounded-[2rem] p-2 bg-gradient-to-b from-white/20 to-transparent">
-            <div className="overflow-hidden rounded-[1.8rem] border border-white/10 shadow-2xl">
-              <img
-                src={myProjectData.project_cover_img}
-                alt="Cover"
-                className="w-full h-auto object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* 4. CONTENT CARDS - High Blur Glass */}
-        <article className="max-w-4xl mx-auto px-6 space-y-12">
-          
-          <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
-            <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
-              <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 text-purple-400 text-lg">01</div>
-              Problem Statement
-            </h2>
-            <p className="text-lg leading-relaxed text-zinc-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-          </div>
-
-          <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
-            <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
-              <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-400 text-lg">02</div>
-              Challenges & Solutions
-            </h2>
-            <p className="text-lg leading-relaxed text-zinc-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-          </div>
-
-          {/* 5. CTA - The "Final Glow" Button */}
-          <section className="pt-20 text-center">
-            <div className="inline-flex gap-4 p-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <Button size="xl" asChild variant="ghost" className="rounded-full px-10 hover:bg-white/10">
-                <a href={myProjectData.project_source_code}>View Source</a>
-              </Button>
-              <Button size="xl" asChild className="rounded-full px-10 bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                <a href={myProjectData.project_url}>Live Project</a>
-              </Button>
-            </div>
-          </section>
-
-        </article>
-      </div>
-    </div>
+        </div>
       </BlurFade>
 
       <Footer />

@@ -177,14 +177,8 @@ export default function LandingPage() {
         <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg">
           {/* Content Layer */}
           <div className="z-10 h-auto m-auto">
-            <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
-              <Image
-                src={PortraitPic_sm}
-                width={400}
-                height={400}
-                className="bg-blue-500 m-auto mr-5 p-auto hidden lg:block"
-                alt="My portrait photo-sm"
-              />
+            <div className="flex flex-wrap flex-col flex-spacing-5 items-center">
+           
               <NavDrawer
                 className=""
                 miniTitle={"I am,"}
