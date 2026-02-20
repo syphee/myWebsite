@@ -52,13 +52,13 @@ export default function NavDrawer({
   }, [text, isDeleting, wordIndex]);
 
   return (
-    <section className="flex h-screen w-screen px-4">
+    <section className="flex w-screen px-4">
       {" "}
       {/* Added padding for mobile edges */}
       <div className="m-auto max-w-full">
         {" "}
         {/* Ensures container doesn't overflow */}
-        <div className="md:text-left">
+        <div className="mt-10 md:text-left">
           <span>{miniTitle}</span>
           <h1 className="mt-0 text-4xl md:text-7xl break-words">
             {" "}
@@ -76,6 +76,11 @@ export default function NavDrawer({
             {" "}
             {/* Ensure flex-wrap is enabled */}
             <Header visible={visible} />
+            <span className="mt-0 text-sm text-slate md:text-7xl break-words ">
+            {" "}
+            {/* Responsive font size + wrapping */}
+           
+          </span>
           </div>
         </div>
       </div>

@@ -1,8 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useParams } from "next/navigation";
+import { Safari } from "@/registry/magicui/safari";
+
+import { Iphone } from "@/registry/magicui/iphone";
 
 import { BlurFade } from "@/registry/magicui/blur-fade";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   AnimatedSpan,
   Terminal,
@@ -143,7 +147,7 @@ export default function LandingPage() {
       <BlurFade delay={0.25} inView>
         <section className="relative flex min-h-screen w-full flex-col overflow-hidden rounded-lg">
           {/* Content Layer */}
-          <div className="z-10 h-auto m-auto w-full max-w-6xl">
+          <div className="z-10  m-auto w-full max-w-2xl ">
             <div className="flex flex-wrap flex-rows flex-spacing-5">
               <div className="absolute inset-0 -z-10 bg-black-500/50 blur-[80px] rounded-full scale-50" />
 
@@ -153,26 +157,28 @@ export default function LandingPage() {
                 pretext={"> "}
                 title={
                   myProjectData.project_video_cover ? (
-                    <iframe
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        width: "100vw",
-                        height: "56.25vw", // 16:9 height relative to viewport width
-                        minHeight: "100vh",
-                        minWidth: "177.77vh", // 16:9 width relative to viewport height
-                        transform: "translate(-50%, -50%)",
-                        pointerEvents: "none",
-                      }}
-                      className="bg-purple-600/30  absolute inset-0 -z-0 h-screen w-screen object-cover opacity-5 absolute shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5"
-                      src={`https://www.youtube.com/embed/${myProjectData.project_video_cover}?autoplay=1&mute=1&loop=1&playlist=${myProjectData.project_video_cover}&controls=0&modestbranding=1&rel=0`}
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                    ></iframe>
+                    <>
+                      <iframe
+                        style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          width: "100vw",
+                          height: "56.25vw", // 16:9 height relative to viewport width
+                          minHeight: "100vh",
+                          minWidth: "177.77vh", // 16:9 width relative to viewport height
+                          transform: "translate(-50%, -50%)",
+                          pointerEvents: "none",
+                        }}
+                        className="bg-purple-600/30  absolute inset-0 -z-0 h-screen w-screen object-cover my-0 opacity-5 absolute shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/5"
+                        src={`https://www.youtube.com/embed/${myProjectData.project_video_cover}?autoplay=1&mute=1&loop=1&playlist=${myProjectData.project_video_cover}&controls=0&modestbranding=1&rel=0`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      ></iframe>
+                    </>
                   ) : myProjectData.project_cover_img ? (
                     <img
                       src={myProjectData.project_cover_img}
@@ -187,6 +193,57 @@ export default function LandingPage() {
                 visible={false}
                 isLooping={false}
               />
+
+              <div className="flex flex-row items-center justify-center gap-8 w-full py-10">
+                {myProjectData?.project_type?.length ? (
+                  myProjectData.project_type.map((type, index) => {
+                    if (type.name === "Mobile") {
+                      return (
+                        /* shrink-0 ensures the iPhone keeps its shape */
+                        <div
+                          key={`mobile-${index}`}
+                          className="shrink-0 w-[280px] md:w-[320px]"
+                        >
+                          <Iphone src={`${myProjectData.project_cover_img}`} />
+                        </div>
+                      );
+                    }
+                    if (type.name === "Web") {
+                      return (
+                        /* flex-1 allows Safari to take available space, but max-w keeps it from getting too huge */
+                        <div
+                          key={`web-${index}`}
+                          className="flex-1 max-w-[700px] min-w-[300px]"
+                        >
+                          <Safari
+                            className="w-full"
+                            url={myProjectData.project_name}
+                            imageSrc={`${myProjectData.project_cover_img}`}
+                          />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })
+                ) : (
+                  <div className="w-full flex justify-center">
+                    <Skeleton className="h-[500px] w-full max-w-4xl" />
+                  </div>
+                )}
+              </div>
+
+              {/* {myProjectData.project_type == "web" ? (
+                      <Safari
+                      className="absolute"
+                        url={`${myProjectData.project_name}`}
+                        imageSrc="https://placehold.co/1200x750?text=Hello+World"
+                      />
+                    ) :
+                    
+                    
+                    (
+                      <Skeleton className="h-[600px] w-[600px]" />
+                    )} */}
             </div>
           </div>
         </section>
