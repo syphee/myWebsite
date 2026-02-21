@@ -93,9 +93,7 @@ const getProjectsRows = async ({ limit_size = 100 } = {}) => {
       project_problem_statement:
         result.project_problem_statement.rich_text?.[0]?.text?.content ?? "",
       project_media:
-        result.project_media.files?.[0]?.file?.url ??
-        result.project_media.files?.[0]?.external?.url ??
-        "",
+        result.project_media.files?.map(({ id, ...rest }) => JSON.stringify(rest.file.url)) ?? []
     };
   });
 
@@ -144,8 +142,7 @@ const getProjectInfoRows = async ({params =""}) => {
       project_problem_statement:
         result.project_problem_statement.rich_text?.[0]?.text?.content ?? "",
       project_media:
-        result.project_media.files?.[0]?.file?.url ??
-        result.project_media.files?.[0]?.external?.url ??
+        result.project_media.files ??
         "",
     };
   });

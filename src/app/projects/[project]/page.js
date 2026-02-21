@@ -2,11 +2,29 @@
 "use client";
 import { useParams } from "next/navigation";
 import { Safari } from "@/registry/magicui/safari";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import { Iphone } from "@/registry/magicui/iphone";
 
 import { BlurFade } from "@/registry/magicui/blur-fade";
 import { Skeleton } from "@/components/ui/skeleton";
+
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
 import {
   AnimatedSpan,
   Terminal,
@@ -19,7 +37,7 @@ import Footer from "../../assets/footer";
 import HomeBtn from "../../assets/homeIconBtn";
 import "../../assets/home.css";
 import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavDrawer from "../../assets/navDrawer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -31,20 +49,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Spinner } from "@/components/ui/spinner";
 
 import {
-  Card,
   CardAction,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 import {
   getProjectsRows,
@@ -129,6 +139,8 @@ export default function LandingPage() {
     yellow: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
     blue: "bg-blue-500/20 text-blue-400 border-blue-500/30",
   };
+
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
     <main className="h-screen">
@@ -370,28 +382,95 @@ export default function LandingPage() {
                   like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
               </div>
-
-              {/* 5. CTA - The "Final Glow" Button */}
-              <section className="pt-20 text-center">
-                <div className="inline-flex gap-4 p-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-                  <Button
-                    size="xl"
-                    asChild
-                    variant="ghost"
-                    className="rounded-full px-10 hover:bg-white/10"
-                  >
-                    <a href={myProjectData.project_source_code}>View Source</a>
-                  </Button>
-                  <Button
-                    size="xl"
-                    asChild
-                    className="rounded-full px-10 bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
-                  >
-                    <a href={myProjectData.project_url}>Live Project</a>
-                  </Button>
-                </div>
-              </section>
             </article>
+
+            {/* 2. HERO SECTION - Glass Card Header */}
+            <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
+              <h1 className="text-6xl md:text-5xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+                Project Snippets
+              </h1>
+              {/* <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
+                {myProjectData.project_description}
+              </p> */}
+
+              {/* Metadata Row - Glass Pill */}
+              <div className="flex items-center flex-col justify-center gap-8 mt-16 p-8 rounded-3xl  backdrop-blur-xl shadow-2xl">
+                <Carousel
+               
+                  plugins={[plugin.current]}
+                  className="w-full max-w-[10rem] sm:max-w-xs"
+                  onMouseEnter={plugin.current.stop}
+                  onMouseLeave={plugin.current.reset}
+                >
+                  <CarouselContent>
+                    {myProjectData?.project_media?.length > 0 ? (
+                      myProjectData.project_media.map((res, index) => (
+                        /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
+                        <CarouselItem key={index} className="basis-full">
+                          <div className="p-1">
+                            <Dialog>
+                              {/* 1. Trigger: Clicking the card opens the dialog */}
+                              <DialogTrigger asChild>
+                                <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                                  <CardContent className="flex aspect-video items-center justify-center p-0 relative">
+                                    <img
+                                      src={res.file.url}
+                                      alt="Project preview"
+                                      className="h-full w-full object-cover"
+                                    />
+                                  </CardContent>
+                                </Card>
+                              </DialogTrigger>
+
+                              {/* 2. Content: The full-size image modal */}
+                              <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                                <DialogHeader className="sr-only">
+                                  <DialogTitle>Image Preview</DialogTitle>
+                                </DialogHeader>
+                                <div className="relative flex items-center justify-center w-full h-full">
+                                  <img
+                                    src={res.file.url}
+                                    alt="Full view"
+                                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                                  />
+                                </div>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </CarouselItem>
+                      ))
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-40">
+                        <Skeleton className="h-full w-full" />
+                      </div>
+                    )}
+                  </CarouselContent>
+
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+                
+              </div>
+            </section>
+            <section className="pt-20 text-center">
+              <div className="inline-flex gap-4 p-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                <Button
+                  size="xl"
+                  asChild
+                  variant="ghost"
+                  className="rounded-full px-10 hover:bg-white/10"
+                >
+                  <a href={myProjectData.project_source_code}>View Source</a>
+                </Button>
+                <Button
+                  size="xl"
+                  asChild
+                  className="rounded-full px-10 bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+                >
+                  <a href={myProjectData.project_url}>Live Project</a>
+                </Button>
+              </div>
+            </section>
           </div>
         </div>
       </BlurFade>

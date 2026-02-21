@@ -132,6 +132,7 @@ export default function LandingPage() {
                 <th className="p-4">Tech Stack</th>
                 <th className="p-4">Context (Problem/Challenges)</th>
                 <th className="p-4">Media & Cover</th>
+                <th className="p-4">Project screenshots</th>
                 <th className="p-4">Links</th>
               </tr>
             </thead>
@@ -227,7 +228,22 @@ export default function LandingPage() {
                           className="truncate w-32"
                           title={data.project_media}
                         >
-                          📽️ {data.project_media}
+                          📽️{" "}
+                          {data?.project_media?.length > 0 ? (
+                            data.project_media.map((res, index) => (
+                              <div key={index}>
+                              {JSON.stringify(res)}
+                              </div>
+                              // <img
+                              //   key={index}
+                              //   src={res.file.url}
+                              //   className="absolute inset-0 -z-0 h-screen w-screen object-cover opacity-20 absolute"
+                              //   alt="background"
+                              // />
+                            ))
+                          ) : (
+                            <>Loading</>
+                          )}
                         </div>
                       </div>
                     </td>
