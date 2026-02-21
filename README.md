@@ -1,31 +1,16 @@
 # WIP
 
 Migratiom
-- host imgs in google photos / supabase
-- make work experience section dynamically filled, use supabase
-- find a component library that looks clean / glassmorphism
-> shadcn[https://ui.shadcn.com/docs/installation/next]
-> extra component libraries[https://www.shadcn.io/][https://magicui.design/docs/components/terminal]
-> 
+- use supabase lol i think its abit overkill for this use case nvm i might scratch this
 
 content
 -add blur fade [https://magicui.design/docs/components/blur-fade]
 - make up self intro
 - compile work experiences and projects
 - maybe work on adventure machine last, inspo: [ref:https://github.com/kmiloarguello/adventure-machine]
-- prioritise on UI/UX for mobile (?)
-
-- Tech stack section
-> make more visually appealing
-> add in icons for the different languages / services
+- work on content description in notion
 
 - Projects page
-> wireframe on figma / canva
-> add filters for search:
->> type of project [webapp,music,tools,photoshop etc]
->> live status [live,WIP,down/not working]
->> query search by typing
->> by date updated / created
 >> onclick of 1 project, should display description, problem statemment, wireframing, challenges, final product, source code btn, live demo 
 >> should also show live status, if the project is live, down or WIP
 
@@ -39,8 +24,35 @@ functionality
 > find out how to store img in supabase 
 > find a way to update content without manually inserting in supabase?
 
+# done
+
+Migratiom
+- hosted imgs on notion
+
+
+content
+-add blur fade [https://magicui.design/docs/components/blur-fade]
+- make up self intro
+- compile work experiences and projects
+- maybe work on adventure machine last, inspo: [ref:https://github.com/kmiloarguello/adventure-machine]
+- prioritise on UI/UX for mobile (?)
+
+- Tech stack section
+> make more visually appealing
+> add in icons for the different languages / services
+
+- Projects page
+
+>> onclick of 1 project, should display description, problem statemment, wireframing, challenges, final product, source code btn, live demo 
+>> should also show live status, if the project is live, down or WIP
+
+functionality
+- work on controller for data handling 
+> notion to handle data
+>> Work on formatting notion response obj
+>> implement webhooks once everything is done
+
+> my resume to link to google drive link
+
 config
 - update secrets on vercel deploy
-
-# done
-- Notion integration
