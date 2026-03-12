@@ -350,7 +350,7 @@ export default function LandingPage() {
                 </h2>
                 <p className="text-lg leading-relaxed text-zinc-400">
                   {myProjectData?.project_problem_statement ? (
-                    {myProjectData.project_problem_statement}
+                    myProjectData.project_problem_statement
                   ) : (
                     <Spinner />
                   )}
@@ -366,7 +366,7 @@ export default function LandingPage() {
                 </h2>
                 <p className="text-lg leading-relaxed text-zinc-400">
                   {myProjectData?.project_challenges ? (
-                    {myProjectData.project_challenges}
+                    myProjectData.project_challenges
                   ) : (
                     <Spinner />
                   )}
