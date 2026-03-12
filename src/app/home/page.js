@@ -110,14 +110,14 @@ export default function LandingPage() {
   const [visible, setVisible] = useState(false);
 
   const introSectionButtons = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500" },
+    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500",href:"https://www.google.com" },
     {
       id: 2,
       label: "My Interests",
       from: "from-blue-500",
-      to: "to-purple-500",
+      to: "to-purple-500",href:"https://www.google.com"
     },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500" },
+    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500",href:"https://www.google.com" },
   ];
 
   // const myWorkExperienceData = [
@@ -215,14 +215,11 @@ export default function LandingPage() {
             <br />
             <div className="mt-5  ">
               <span>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. Lorem
-                Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book!
+                My name is Landicho James Evans Arvesu.
+
+    I am from the Philippines, however I lived in Singapore ever since I was a year old - so I often confuse whether I consider myself being a real Filipino when I have stayed in Singapore longer than my home country.
+    
+    Outside school, I play as a keyboardist for a church every 3rd sunday of the month as service. We occasionaly have perfomances throughout the year too.
               </span>
             </div>
 
@@ -234,7 +231,14 @@ export default function LandingPage() {
                     className={`bg-gradient-to-r ${btn.from} ${btn.to} mt-5 mr-5 p-[1px] rounded-lg transition-all hover:opacity-90 active:scale-95`}
                   >
                     <span className="flex w-full bg-gray-900 text-white rounded-[7px] px-6 py-2 font-semibold">
-                      {btn.label}
+                 
+                      <a
+                      href={`${btn.href}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                      >
+                {btn.label}
+                      </a>
                     </span>
                   </button>
                 ))}
