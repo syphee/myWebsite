@@ -110,7 +110,7 @@ export default function LandingPage() {
   const [visible, setVisible] = useState(false);
 
   const introSectionButtons = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500",href:"https://www.google.com" },
+    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500",href:"https://drive.google.com/drive/folders/1mUwdn1UGCajcVTWETFUx0VYpG2D2teDv" },
     {
       id: 2,
       label: "My Interests",
