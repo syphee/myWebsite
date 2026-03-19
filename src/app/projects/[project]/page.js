@@ -275,9 +275,29 @@ export default function LandingPage() {
               <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
                 {myProjectData.project_description}
               </p>
+              <section className="pt-20 text-center">
+                <div className="inline-flex gap-4 p-2 ">
+                  <Button
+                    size="xl"
+                    asChild
+                    variant="ghost"
+                    className="rounded-full px-10 hover:bg-white/10 border px-10 rounded-full py-2 w-full bg-slate-600 hover:bg-green-700 text-white"
+                  >
+                    <a href={myProjectData.project_source_code}>View Source</a>
+                  </Button>
+                  <Button
+                    size="xl"
+                    asChild
+                    variant="ghost"
+                    className="rounded-full px-10 hover:bg-white/10 w-full bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <a href={myProjectData.project_url}>Live Project</a>
+                  </Button>
+                </div>
+              </section>
 
               {/* Metadata Row - Glass Pill */}
-              <div className="flex flex-wrap justify-center gap-8 mt-16 p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+              <div className="flex flex-wrap justify-center gap-8 mt-16 p-8 rounded-3xl  backdrop-blur-xl shadow-2xl">
                 <div className="text-center px-4">
                   <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-2 font-bold">
                     Platform
@@ -341,126 +361,115 @@ export default function LandingPage() {
 
             {/* 4. CONTENT CARDS - High Blur Glass */}
             <article className="max-w-4xl mx-auto px-6 space-y-12">
-              <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 text-purple-400 text-lg">
-                    01
-                  </div>
-                  Problem Statement
-                </h2>
-                <p className="text-lg leading-relaxed text-zinc-400">
-                  {myProjectData?.project_problem_statement ? (
-                    myProjectData.project_problem_statement
-                  ) : (
-                    <Spinner />
-                  )}
-                </p>
-              </div>
 
-              <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-400 text-lg">
-                    02
-                  </div>
-                  Challenges & Solutions
-                </h2>
-                <p className="text-lg leading-relaxed text-zinc-400">
-                  {myProjectData?.project_challenges ? (
-                    myProjectData.project_challenges
-                  ) : (
-                    <Spinner />
-                  )}
-                </p>
-              </div>
+              {/*proj prob statement*/}
+              {myProjectData?.project_problem_statement && (
+      <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
+        <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
+          <div className="h-10 w-10 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 text-purple-400 text-lg">
+            01
+          </div>
+          Problem Statement
+        </h2>
+        <p className="text-lg leading-relaxed text-zinc-400">
+          {myProjectData?.project_problem_statement?.length != 0 ? (
+            myProjectData.project_problem_statement
+          ) : (
+            <Spinner />
+          )}
+        </p>
+      </div>
+              )}
+             
+              {/*project_challenges */}
+              {myProjectData?.project_challenges && (
+                <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
+                  <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-400 text-lg">
+                      01
+                    </div>
+                    Problem Statement
+                  </h2>
+                  <p className="text-lg leading-relaxed text-zinc-400">
+                    {myProjectData?.project_challenges?.length != 0 ? (
+                      myProjectData.project_challenges
+                    ) : (
+                      <Spinner />
+                    )}
+                  </p>
+                </div>
+                        )}
             </article>
 
             {/* 2. HERO SECTION - Glass Card Header */}
-            <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
-              <h1 className="text-6xl md:text-5xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
-                Project Snippets
-              </h1>
-              {/* <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
-                {myProjectData.project_description}
-              </p> */}
+            {myProjectData?.project_media != null &&(
+        <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
+          <h1 className="text-6xl md:text-5xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+            Project Snippets
+          </h1>
+          {/* <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
+            {myProjectData.project_description}
+          </p> */}
 
-              {/* Metadata Row - Glass Pill */}
-              <div className="flex items-center flex-col justify-center gap-8 mt-16 p-8 rounded-3xl  backdrop-blur-xl shadow-2xl">
-                <Carousel
-               
-                  plugins={[plugin.current]}
-                  className="w-full max-w-[10rem] sm:max-w-xs"
-                  onMouseEnter={plugin.current.stop}
-                  onMouseLeave={plugin.current.reset}
-                >
-                  <CarouselContent>
-                    {myProjectData?.project_media?.length > 0 ? (
-                      myProjectData.project_media.map((res, index) => (
-                        /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
-                        <CarouselItem key={index} className="basis-full">
-                          <div className="p-1">
-                            <Dialog>
-                              {/* 1. Trigger: Clicking the card opens the dialog */}
-                              <DialogTrigger asChild>
-                                <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
-                                  <CardContent className="flex aspect-video items-center justify-center p-0 relative">
-                                    <img
-                                      src={res.file.url}
-                                      alt="Project preview"
-                                      className="h-full w-full object-cover"
-                                    />
-                                  </CardContent>
-                                </Card>
-                              </DialogTrigger>
+          {/* Metadata Row - Glass Pill */}
+          <div className="flex items-center flex-col justify-center gap-8 mt-16 p-8 rounded-3xl  backdrop-blur-xl shadow-2xl">
+            <Carousel
+              plugins={[plugin.current]}
+              className="w-full max-w-[10rem] sm:max-w-xs"
+              onMouseEnter={plugin.current.stop}
+              onMouseLeave={plugin.current.reset}
+            >
+              <CarouselContent>
+                {myProjectData?.project_media?.length > 0 ? (
+                  myProjectData.project_media.map((res, index) => (
+                    /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
+                    <CarouselItem key={index} className="basis-full">
+                      <div className="p-1">
+                        <Dialog>
+                          {/* 1. Trigger: Clicking the card opens the dialog */}
+                          <DialogTrigger asChild>
+                            <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                              <CardContent className="flex aspect-video items-center justify-center p-0 relative">
+                                <img
+                                  src={res.file.url}
+                                  alt="Project preview"
+                                  className="h-full w-full object-cover"
+                                />
+                              </CardContent>
+                            </Card>
+                          </DialogTrigger>
 
-                              {/* 2. Content: The full-size image modal */}
-                              <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
-                                <DialogHeader className="sr-only">
-                                  <DialogTitle>Image Preview</DialogTitle>
-                                </DialogHeader>
-                                <div className="relative flex items-center justify-center w-full h-full">
-                                  <img
-                                    src={res.file.url}
-                                    alt="Full view"
-                                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                                  />
-                                </div>
-                              </DialogContent>
-                            </Dialog>
-                          </div>
-                        </CarouselItem>
-                      ))
-                    ) : (
-                      <div className="flex items-center justify-center w-full h-40">
-                        <Skeleton className="h-full w-full" />
+                          {/* 2. Content: The full-size image modal */}
+                          <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                            <DialogHeader className="sr-only">
+                              <DialogTitle>Image Preview</DialogTitle>
+                            </DialogHeader>
+                            <div className="relative flex items-center justify-center w-full h-full">
+                              <img
+                                src={res.file.url}
+                                alt="Full view"
+                                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                              />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </div>
-                    )}
-                  </CarouselContent>
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center w-full h-40">
+                    <Skeleton className="h-full w-full" />
+                  </div>
+                )}
+              </CarouselContent>
 
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-                
-              </div>
-            </section>
-            <section className="pt-20 text-center">
-              <div className="inline-flex gap-4 p-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-                <Button
-                  size="xl"
-                  asChild
-                  variant="ghost"
-                  className="rounded-full px-10 hover:bg-white/10"
-                >
-                  <a href={myProjectData.project_source_code}>View Source</a>
-                </Button>
-                <Button
-                  size="xl"
-                  asChild
-                  className="rounded-full px-10 bg-white text-black hover:bg-zinc-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]"
-                >
-                  <a href={myProjectData.project_url}>Live Project</a>
-                </Button>
-              </div>
-            </section>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </section>
+            )}
+            
           </div>
         </div>
       </BlurFade>
