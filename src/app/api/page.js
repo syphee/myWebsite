@@ -8,6 +8,7 @@ import {
   getProjectsRows,
   getWorkExperienceRows,
   getTechStacksRows,
+  getInterestsRows,
 } from "../controller/notion";
 
 export default function LandingPage() {
@@ -16,10 +17,17 @@ export default function LandingPage() {
 
   const [notionProjects, setNotionProjects] = useState([]);
 
+  const [notionInterests,setNotionInterests] = useState([]);
+
   const getWorkExperience = async () => {
     const data = await getWorkExperienceRows();
     setNotionWorkExperience(data);
   };
+
+  const getInterests = async () => {
+    const data = await getInterestsRows();
+    setNotionInterests(data);
+  }
 
   const getProjects = async () => {
     const data = await getProjectsRows();
@@ -264,6 +272,104 @@ export default function LandingPage() {
                           className="text-gray-500 hover:text-gray-700 underline"
                         >
                           View Code
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="p-12 text-center text-gray-400">
+                    No project data loaded yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {/* INTERESTS SECTION */}
+      <section>
+        <div className="flex items-center gap-4 mb-4">
+          <h2 className="text-xl font-semibold text-black">Interests</h2>
+          <button
+            onClick={getInterests}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+          >
+            Fetch Interests
+          </button>
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+          <table className="w-full text-left border-collapse bg-white text-xs">
+            <thead className="bg-gray-50 text-gray-600 font-bold uppercase tracking-wider border-b">
+              <tr>
+                <th className="p-4">Interest Name</th>
+                <th className="p-4">Interest Description</th>
+                <th className="p-4">Interest Url</th>
+                <th className="p-4">Interest Media</th>
+                
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {notionInterests?.length > 0 ? (
+                notionInterests.map((data) => (
+                  <tr
+                    key={data.id}
+                    className="hover:bg-gray-50 transition-colors align-top"
+                  >
+                    {/* Name */}
+                    <td className="p-4">
+                      <div className="font-bold text-gray-900 text-sm">
+                        {data.interest_name}
+                      </div>
+                    </td>
+
+                 
+
+                    {/* Description */}
+                    <td className="p-4 min-w-[200px]">
+                      <p className="text-gray-600 leading-relaxed">
+                        {data.interest_description}
+                      </p>
+                    </td>
+
+                    {/* Media & Cover */}
+                    <td className="p-4 whitespace-nowrap">
+                      <div className="flex flex-col gap-1 text-gray-500 italic">
+                        <div
+                          className="truncate w-32"
+                          title={data.interest_media}
+                        >
+                          📽️{" "}
+                          {data?.interest_media?.length > 0 ? (
+                            data.interest_media.map((res, index) => (
+                              <div key={index}>
+                              {JSON.stringify(res)}
+                              </div>
+                              // <img
+                              //   key={index}
+                              //   src={res.file.url}
+                              //   className="absolute inset-0 -z-0 h-screen w-screen object-cover opacity-20 absolute"
+                              //   alt="background"
+                              // />
+                            ))
+                          ) : (
+                            <>Loading</>
+                          )}
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Links */}
+                    <td className="p-4 whitespace-nowrap">
+                      <div className="flex flex-col gap-2">
+                        <a
+                          href={data.interest_url}
+                          target="_blank"
+                          className="text-blue-500 hover:text-blue-700 font-semibold underline"
+                        >
+                          Links
                         </a>
                       </div>
                     </td>

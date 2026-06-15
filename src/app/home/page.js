@@ -88,7 +88,7 @@ export default function LandingPage() {
     const fetchData = async () => {
       try {
         const fetchWorkExperience = await getWorkExperienceRows();
-        const fetchProjects = await getProjectsRows({limit_size:4});
+        const fetchProjects = await getProjectsRows({ limit_size: 4 });
         const fetchTechStacks = await getTechStacksRows();
 
         const payload = [fetchWorkExperience, fetchProjects, fetchTechStacks];
@@ -110,14 +110,29 @@ export default function LandingPage() {
   const [visible, setVisible] = useState(false);
 
   const introSectionButtons = [
-    { id: 1, label: "My resume", from: "from-blue-500", to: "to-purple-500",href:"https://drive.google.com/drive/folders/1mUwdn1UGCajcVTWETFUx0VYpG2D2teDv" },
+    {
+      id: 1,
+      label: "My resume",
+      from: "from-blue-500",
+      to: "to-purple-500",
+      href: "https://drive.google.com/drive/folders/1mUwdn1UGCajcVTWETFUx0VYpG2D2teDv",
+    },
     {
       id: 2,
       label: "My Interests",
       from: "from-blue-500",
-      to: "to-purple-500",href:"https://www.google.com"
+      to: "to-purple-500",
+      href: "/interests",
     },
-    { id: 3, label: "Education", from: "from-blue-500", to: "to-purple-500",href:"https://www.google.com" },
+    /*
+    {
+      id: 3,
+      label: "Education",
+      from: "from-blue-500",
+      to: "to-purple-500",
+      href: "https://www.google.com",
+    },
+    */
   ];
 
   // const myWorkExperienceData = [
@@ -162,7 +177,7 @@ export default function LandingPage() {
   return (
     <main className="h-screen">
       <div className="fixed inset-0 -z-10 h-screen w-screen">
-        <LightRays className="h-screen" />
+        {/*<LightRays className="h-screen" />*/}
       </div>
 
       <HomeBtn />
@@ -178,7 +193,6 @@ export default function LandingPage() {
           {/* Content Layer */}
           <div className="z-10 h-auto m-auto">
             <div className="flex flex-wrap flex-col flex-spacing-5 items-center">
-           
               <NavDrawer
                 className=""
                 miniTitle={"I am,"}
@@ -215,11 +229,13 @@ export default function LandingPage() {
             <br />
             <div className="mt-5  ">
               <span>
-                My name is Landicho James Evans Arvesu.
-
-    I am from the Philippines, however I lived in Singapore ever since I was a year old - so I often confuse whether I consider myself being a real Filipino when I have stayed in Singapore longer than my home country.
-    
-    Outside school, I play as a keyboardist for a church every 3rd sunday of the month as service. We occasionaly have perfomances throughout the year too.
+                My name is Landicho James Evans Arvesu. I am from the
+                Philippines, however I lived in Singapore ever since I was a
+                year old - so I often confuse whether I consider myself being a
+                real Filipino when I have stayed in Singapore longer than my
+                home country. Outside school, I play as a keyboardist for a
+                church every 3rd sunday of the month as service. We occasionaly
+                have perfomances throughout the year too.
               </span>
             </div>
 
@@ -231,13 +247,8 @@ export default function LandingPage() {
                     className={`bg-gradient-to-r ${btn.from} ${btn.to} mt-5 mr-5 p-[1px] rounded-lg transition-all hover:opacity-90 active:scale-95`}
                   >
                     <span className="flex w-full bg-gray-900 text-white rounded-[7px] px-6 py-2 font-semibold">
-                 
-                      <a
-                      href={`${btn.href}`}
-                                  target="_blank"
-                                  rel="noreferrer"
-                      >
-                {btn.label}
+                      <a href={`${btn.href}`} target="_blank" rel="noreferrer">
+                        {btn.label}
                       </a>
                     </span>
                   </button>
@@ -265,13 +276,9 @@ export default function LandingPage() {
             <div className="w-full">
               <Carousel className="h-full" setApi={setApi}>
                 <CarouselContent className="p-5 mb-5">
-                  
                   {myProjectData.length > 0 ? (
                     <>
-
-                  
-                      {myProjectData.map((res,index) => (
-                        
+                      {myProjectData.map((res, index) => (
                         <CarouselItem
                           key={res.id}
                           className="basis-2/3 sm:basis-1/2 md:basis-1/3 "
@@ -407,7 +414,6 @@ export default function LandingPage() {
         </section>
       </BlurFade>
 
-
       <BlurFade delay={0.25} inView>
         <section className="w-full my-10">
           <div className="max-w-6xl mx-auto ">
@@ -450,7 +456,7 @@ export default function LandingPage() {
                                     style={{ height: "60px", width: "70px" }} // Forces height, auto-adjusts width
                                     alt={`tech-logo-${btn.id}`}
                                   />
-
+                                  {/*
                                   <BorderBeam
                                     duration={6}
                                     className="from-transparent via-purple-500 to-transparent"
@@ -461,6 +467,7 @@ export default function LandingPage() {
                                     borderWidth={2}
                                     className="from-transparent via-blue-500 to-transparent"
                                   />
+                                  */}
                                 </div>
                               </HoverCardTrigger>
 
@@ -510,8 +517,10 @@ export default function LandingPage() {
                         <CardTitle className="text-lg mt-3">
                           {res.job_name}
                         </CardTitle>
-                      
-                        <span className="opacity-50 mt-3">{res.job_company}</span>
+
+                        <span className="opacity-50 mt-3">
+                          {res.job_company}
+                        </span>
                         <CardDescription className="line-clamp-4 ">
                           {res.job_role}
                         </CardDescription>

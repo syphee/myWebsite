@@ -145,7 +145,7 @@ export default function LandingPage() {
   return (
     <main className="h-screen">
       <div className="fixed inset-0 -z-10 h-screen w-screen">
-        <LightRays className="h-screen" />
+        { /*<LightRays className="h-screen" />*/}
       </div>
 
       <HomeBtn />
@@ -386,9 +386,9 @@ export default function LandingPage() {
                 <div className="p-10 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-inner">
                   <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
                     <div className="h-10 w-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-400 text-lg">
-                      01
+                      02
                     </div>
-                    Problem Statement
+                    Project Challenges
                   </h2>
                   <p className="text-lg leading-relaxed text-zinc-400">
                     {myProjectData?.project_challenges?.length != 0 ? (

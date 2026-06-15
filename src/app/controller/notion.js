@@ -11,6 +11,34 @@ const dbName = process.env.NOTION_DB_ID;
 
 const body = JSON.stringify({ dbName });
 
+const getInterestsRows = async ({ limit_size = 100 } = {}) => {
+  const notion = new Client({ auth: process.env.NOTION_API_KEY });
+
+  const response = await notion.dataSources.query({
+    data_source_id: process.env.NOTION_INTERESTS_DB_ID,
+    page_size: limit_size,
+  });
+
+  const data = response.results.map((page) => {
+    const result = page.properties;
+    console.log(JSON.stringify(result, null, 4));
+    return {
+      id: result.id.title?.[0]?.text?.content ?? "N/A",
+      interest_name:
+        result.interest_name.rich_text?.[0]?.text?.content ?? "Untitled",
+      interest_description:
+        result.interest_description.rich_text?.[0]?.text?.content ?? "",
+      interest_url: result.interest_url.url ?? "",
+      interest_media:
+        result.interest_media.files?.map(({ id, ...rest }) => JSON.stringify(rest.file.url)) ?? []
+    };
+  });
+
+  console.log(data);
+
+  return data;
+};
+
 const getWorkExperienceRows = async () => {
   const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
@@ -186,4 +214,4 @@ const getTechStacksRows = async () => {
 
 
 
-export { getWorkExperienceRows, getProjectsRows,getTechStacksRows,getProjectInfoRows };
+export { getWorkExperienceRows, getProjectsRows,getTechStacksRows,getProjectInfoRows,getInterestsRows };
