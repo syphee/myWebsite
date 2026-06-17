@@ -220,9 +220,8 @@ export default function LandingPage() {
                       .map((res) => (
                         <div key={res.id} className="w-full">
        
-                          {/* Shadcn Card with inner grid: left = content, right = carousel on lg+ */}
-                          <Card className="m-5 mx-auto overflow-hidden">
-                            <div className="grid grid-cols-1 lg:grid-cols-2">
+                          {/* Grid wrapper styled like a shadcn Card */}
+                          <div className="m-5 mx-auto rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 
                             {/* Left: Title, Description, Button */}
                             <div className="flex flex-col justify-center gap-4 p-6">
@@ -286,8 +285,7 @@ export default function LandingPage() {
                                 <CarouselNext />
                               </Carousel>
                             </div>
-                            </div>
-                          </Card>
+                          </div>
                         </div>
                       ))}
                   </>
