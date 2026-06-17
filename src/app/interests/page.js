@@ -209,10 +209,10 @@ export default function LandingPage() {
       <BlurFade delay={0.25} inView>
 
         <section className=" flex-wrap flex-col w-full ">
-          <div className="max-w-5xl mx-auto px-4 gap-10">
+          <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
             <div className="">
               <div
-                className="grid grid-cols-1 gap-4"
+                className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl"
               >
                 {myInterestData?.length > 0 ? (
                   <>
@@ -220,71 +220,105 @@ export default function LandingPage() {
                       .map((res) => (
                         <div key={res.id} className="w-full">
        
-                          {/* Shadcn Card with inner grid: left = content, right = carousel on lg+ */}
-                          <Card className="m-5 mx-auto overflow-hidden !flex-row grid grid-cols-1 lg:grid-cols-2 py-0">
+                          {/* 2. Ensure Card is a flex container for the Image + Content */}
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
 
-                            {/* Left: Title, Description, Button */}
-                            <div className="flex flex-col justify-center gap-4 p-6">
-                              <h3 className="text-xl font-bold">{res.interest_name}</h3>
-                              <p className="text-sm text-muted-foreground line-clamp-4">{res.interest_description}</p>
+                              {/*Card img */}
+                              <a
+                                className="cursor-pointer"
+                                //onClick={() => {
+                                 // router.push(`/projects/${res.interest_name}`);
+                               // }}
+                              >
+                                <Carousel
+                                  plugins={[plugin.current]}
+                                  className="w-full"
+                                  onMouseEnter={plugin.current.stop}
+                                  onMouseLeave={plugin.current.reset}
+                                >
+                                  <CarouselContent>
+                                    {res?.interest_media?.length > 0 ? (
+                                      res.interest_media.map((res, index) => (
+                                        /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
+                                        
+                                        <CarouselItem key={index} className="basis-full">
+                                          <div className="p-1">
+                                            
+                                            <Dialog>
+                                              {/* 1. Trigger: Clicking the card opens the dialog */}
+                                              <DialogTrigger asChild>
+                                                <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                                                  <CardContent className="flex aspect-video items-center justify-center p-0 relative">
+                                                    <img
+                                                      src={res}
+                                                      alt="Project preview"
+                                                      className="h-full w-full object-cover object-center"
+                                                    />
+                                                    
+                                                  </CardContent>
+                                                </Card>
+                                              </DialogTrigger>
+
+                                              {/* 2. Content: The full-size image modal */}
+                                              <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                                                <DialogHeader className="sr-only">
+                                                  <DialogTitle>{res}</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="relative flex items-center justify-center w-full h-full">
+                                                  <img
+                                                    src={res}
+                                                    alt="Full view"
+                                                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                                                  />
+                                                </div>
+                                              </DialogContent>
+                                            </Dialog>
+                                          </div>
+                                        </CarouselItem>
+                                      ))
+                                    ) : (
+                                      <div className="flex items-center justify-center w-full h-40">
+                                        <Skeleton className="h-full w-full" />
+                                      </div>
+                                    )}
+                                  </CarouselContent>
+
+                                  <CarouselPrevious />
+                                  <CarouselNext />
+                                </Carousel>
+                              </a>
+
+                             
+                            </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.interest_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.interest_description}
+                              </CardDescription>
+                            </CardHeader>
+
+                           
+
+                            <CardFooter className="flex space-x-4 mt-auto">
                               <Button
                                 asChild
-                                className="bg-green-600 hover:bg-green-700 text-white w-fit"
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
                               >
-                                <a href={res.interest_url} target="_blank" rel="noreferrer">
+                                <a
+                                  href={res.interest_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
                                   Link
                                 </a>
                               </Button>
-                            </div>
-
-                            {/* Right: Carousel */}
-                            <div className="relative w-full aspect-video overflow-hidden">
-                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
-                              <Carousel
-                                plugins={[plugin.current]}
-                                className="w-full h-full"
-                                onMouseEnter={plugin.current.stop}
-                                onMouseLeave={plugin.current.reset}
-                              >
-                                <CarouselContent className="h-full">
-                                  {res?.interest_media?.length > 0 ? (
-                                    res.interest_media.map((res, index) => (
-                                      <CarouselItem key={index} className="basis-full">
-                                        <Dialog>
-                                          <DialogTrigger asChild>
-                                            <div className="w-full aspect-video cursor-pointer hover:opacity-90 transition-opacity overflow-hidden">
-                                              <img
-                                                src={res}
-                                                alt="Interest preview"
-                                                className="h-full w-full object-cover object-center"
-                                              />
-                                            </div>
-                                          </DialogTrigger>
-                                          <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
-                                            <DialogHeader className="sr-only">
-                                              <DialogTitle>{res}</DialogTitle>
-                                            </DialogHeader>
-                                            <div className="relative flex items-center justify-center w-full h-full">
-                                              <img
-                                                src={res}
-                                                alt="Full view"
-                                                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                                              />
-                                            </div>
-                                          </DialogContent>
-                                        </Dialog>
-                                      </CarouselItem>
-                                    ))
-                                  ) : (
-                                    <div className="flex items-center justify-center w-full h-40">
-                                      <Skeleton className="h-full w-full" />
-                                    </div>
-                                  )}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                              </Carousel>
-                            </div>
+                              
+                            </CardFooter>
                           </Card>
                         </div>
                       ))}
