@@ -306,8 +306,8 @@ export default function LandingPage() {
               <tr>
                 <th className="p-4">Interest Name</th>
                 <th className="p-4">Interest Description</th>
-                <th className="p-4">Interest Url</th>
                 <th className="p-4">Interest Media</th>
+                <th className="p-4">Interest Url</th>
                 
               </tr>
             </thead>
@@ -341,18 +341,14 @@ export default function LandingPage() {
                           className="truncate w-32"
                           title={data.interest_media}
                         >
-                          📽️{" "}
+                          
                           {data?.interest_media?.length > 0 ? (
                             data.interest_media.map((res, index) => (
-                              <div key={index}>
+                                                         <div key={index}>
                               {JSON.stringify(res)}
                               </div>
-                              // <img
-                              //   key={index}
-                              //   src={res.file.url}
-                              //   className="absolute inset-0 -z-0 h-screen w-screen object-cover opacity-20 absolute"
-                              //   alt="background"
-                              // />
+                              
+                            
                             ))
                           ) : (
                             <>Loading</>

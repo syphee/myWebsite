@@ -30,7 +30,7 @@ const getInterestsRows = async ({ limit_size = 100 } = {}) => {
         result.interest_description.rich_text?.[0]?.text?.content ?? "",
       interest_url: result.interest_url.url ?? "",
       interest_media:
-        result.interest_media.files?.map(({ id, ...rest }) => JSON.stringify(rest.file.url)) ?? []
+        result.interest_media.files?.map(({ id, ...rest }) => rest.file.url) ?? []
     };
   });
 
@@ -121,7 +121,7 @@ const getProjectsRows = async ({ limit_size = 100 } = {}) => {
       project_problem_statement:
         result.project_problem_statement.rich_text?.[0]?.text?.content ?? "",
       project_media:
-        result.project_media.files?.map(({ id, ...rest }) => JSON.stringify(rest.file.url)) ?? []
+        result.project_media.files?.map(({ id, ...rest }) => rest.file.url) ?? []
     };
   });
 

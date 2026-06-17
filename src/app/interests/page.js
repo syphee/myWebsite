@@ -5,12 +5,22 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
+import { BlurFade } from "@/registry/magicui/blur-fade";
 
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
 import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Autoplay from "embla-carousel-autoplay";
+
 import NavDrawer from "../assets/navDrawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { GridPattern } from "@/registry/magicui/grid-pattern";
@@ -43,9 +53,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getProjectsRows } from "../controller/notion";
+import { getInterestsRows } from "../controller/notion";
 
 export default function LandingPage() {
+
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+
   const { theme } = useTheme();
   function hideNav() {
     setVisible(false);
@@ -60,6 +73,34 @@ export default function LandingPage() {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  
+
+  const introSectionButtons = [
+    {
+      id: 1,
+      label: "My resume",
+      from: "from-blue-500",
+      to: "to-purple-500",
+      href: "https://drive.google.com/drive/folders/1mUwdn1UGCajcVTWETFUx0VYpG2D2teDv",
+    },
+    {
+      id: 2,
+      label: "My Interests",
+      from: "from-blue-500",
+      to: "to-purple-500",
+      href: "/interests",
+    },
+    /*
+    {
+      id: 3,
+      label: "Education",
+      from: "from-blue-500",
+      to: "to-purple-500",
+      href: "https://www.google.com",
+    },
+    */
+  ];
+
   useEffect(() => {
     if (!api) {
       return;
@@ -73,16 +114,16 @@ export default function LandingPage() {
     });
   }, [api]);
 
-  const [myProjectData, setMyProjectData] = useState([]);
+  const [myInterestData, setMyInterestData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchProjects = await getProjectsRows();
+        const fetchInterests = await getInterestsRows();
 
-        const payload = [fetchProjects];
+        const payload = [fetchInterests];
         Promise.all(payload).then((result) => {
-          setMyProjectData(result[0]);
+          setMyInterestData(result[0]);
         });
       } catch (error) {
         console.error("Failed to fetch Notion data:", error);
@@ -115,8 +156,8 @@ export default function LandingPage() {
   return (
     <main className="h-screen">
       <HomeBtn />
-      <div className="fixed inset-0 -z-10 h-screen w-screen">
-        <LightRays className="h-screen" />
+      <div className="fixed inset-0 -z-10 h-screen w-screen">my 
+        {/*<LightRays className="h-screen" >*/}
       </div>
 
       {/* https://www.framer.com/motion/examples/ */}
@@ -144,7 +185,7 @@ export default function LandingPage() {
 
       </section>
 
-      {/* Work Experiences */}
+      {/* Interests */}
 
       <section className=" flex-wrap flex-col w-full ">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
@@ -158,399 +199,147 @@ export default function LandingPage() {
             </h1>
           </div>
 
-          <div className="w-full ">
-            <Tabs defaultValue="web_app" className="max-w-7xl">
-              <TabsList>
-                <TabsTrigger
-                  value="web_app"
-                  disabled={
-                    myProjectData.filter((res, index) =>
-                      res.project_type.some((type) =>
-                        type.name.toLowerCase().includes(["web"]),
-                      ),
-                    ).length == 0
-                  }
-                >
-                  Web App
-                </TabsTrigger>
-                <TabsTrigger
-                  value="tools"
-                  disabled={
-                    myProjectData.filter((res, index) =>
-                      res.project_type.some((type) =>
-                        type.name.toLowerCase().includes(["tools"]),
-                      ),
-                    ).length == 0
-                  }
-                >
-                  Tools
-                </TabsTrigger>
-                <TabsTrigger
-                  value="music_production"
-                  disabled={
-                    myProjectData.filter((res, index) =>
-                      res.project_type.some((type) =>
-                        type.name.toLowerCase().includes(["music"]),
-                      ),
-                    ).length == 0
-                  }
-                >
-                  Music Production
-                </TabsTrigger>
-              </TabsList>
-              {/* 1. Change container to grid for 2 columns of cards */}
-              <TabsContent
-                value="web_app"
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl"
-              >
-                {myProjectData.length > 0 ? (
-                  <>
-                    {myProjectData
-                      .filter((res, index) =>
-                        res.project_type.some((type) =>
-                          type.name.toLowerCase().includes(["web"]),
-                        ),
-                      )
-                      .map((res) => (
-                        <div key={res.id} className="w-full">
-                          {res.project_type.name}
-                          {/* 2. Ensure Card is a flex container for the Image + Content */}
-                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
-                            <div className="relative w-full aspect-video overflow-hidden">
-                              <div className="absolute top-3 left-3 z-30">
-                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
-                                  <Badge
-                                    variant="secondary"
-                                    className="rounded-md"
-                                  >
-                                    <LiveStatusDot
-                                      status={res.project_live_status}
-                                    />
-                                    {res.project_live_status}
-                                  </Badge>
-                                </div>
-                              </div>
-
-                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
-                              <a
-                                className="cursor-pointer"
-                                onClick={() => {
-                                  router.push(`/projects/${res.project_name}`);
-                                }}
-                              >
-                                <img
-                                  src={res.project_cover_img}
-                                  alt={res.project_name}
-                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
-                                />
-                              </a>
-
-                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
-                                {res.project_type.map((skill, i) => (
-                                  <Badge
-                                    key={i}
-                                    variant="secondary"
-                                    className="bg-white/20 backdrop-blur-md border-none text-white"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            <CardHeader className="flex-grow">
-                              <CardTitle className="text-xl font-bold">
-                                {res.project_name}
-                              </CardTitle>
-                              <CardDescription className="line-clamp-4 mt-2">
-                                {res.project_description}
-                              </CardDescription>
-                            </CardHeader>
-
-                            {/* Project Tech Stack */}
-                            <div className="px-4 pb-4 flex flex-wrap gap-1">
-                              {res.project_stack.map((skill, i) => (
-                                <div key={i} className=" p-[1px] rounded-full">
-                                  <Badge
-                                    variant="outline"
-                                    className="bg-background  border-none"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                </div>
-                              ))}
-                            </div>
-
-                            <CardFooter className="flex space-x-4 mt-auto">
-                              <Button
-                                asChild
-                                className="w-full bg-green-600 hover:bg-green-700 text-white"
-                              >
-                                <a
-                                  href={res.project_url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Live
-                                </a>
-                              </Button>
-                              <Button
-                                asChild
-                                variant="outline"
-                                className="w-full border-white/20"
-                              >
-                                <a
-                                  href={res.project_source_code}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Source Code
-                                </a>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </div>
-                      ))}
-                  </>
-                ) : (
-                  <Skeleton className="h-[600px] w-[600px]" />
-                )}
-              </TabsContent>
-
-              <TabsContent value="tools"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl">
-                {myProjectData.length > 0 ? (
-                  <>
-                    {myProjectData
-                      .filter((res, index) =>
-                        res.project_type.some((type) =>
-                          type.name.toLowerCase().includes(["tools"]),
-                        ),
-                      )
-                      .map((res) => (
-                        <div key={res.id} className="w-full">
-                          {res.project_type.name}
-                          {/* 2. Ensure Card is a flex container for the Image + Content */}
-                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
-                            <div className="relative w-full aspect-video overflow-hidden">
-                              <div className="absolute top-3 left-3 z-30">
-                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
-                                  <Badge
-                                    variant="secondary"
-                                    className="rounded-md"
-                                  >
-                                    <LiveStatusDot
-                                      status={res.project_live_status}
-                                    />
-                                    {res.project_live_status}
-                                  </Badge>
-                                </div>
-                              </div>
-
-                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
-                              <a
-                                className="cursor-pointer"
-                                onClick={() => {
-                                  router.push(`/projects/${res.project_name}`);
-                                }}
-                              >
-                                <img
-                                  src={res.project_cover_img}
-                                  alt={res.project_name}
-                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
-                                />
-                              </a>
-
-                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
-                                {res.project_type.map((skill, i) => (
-                                  <Badge
-                                    key={i}
-                                    variant="secondary"
-                                    className="bg-white/20 backdrop-blur-md border-none text-white"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            <CardHeader className="flex-grow">
-                              <CardTitle className="text-xl font-bold">
-                                {res.project_name}
-                              </CardTitle>
-                              <CardDescription className="line-clamp-4 mt-2">
-                                {res.project_description}
-                              </CardDescription>
-                            </CardHeader>
-
-                            {/* Project Tech Stack */}
-                            <div className="px-4 pb-4 flex flex-wrap gap-1">
-                              {res.project_stack.map((skill, i) => (
-                                <div key={i} className=" p-[1px] rounded-full">
-                                  <Badge
-                                    variant="outline"
-                                    className="bg-background  border-none"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                </div>
-                              ))}
-                            </div>
-
-                            <CardFooter className="flex space-x-4 mt-auto">
-                              <Button
-                                asChild
-                                className="w-full bg-green-600 hover:bg-green-700 text-white"
-                              >
-                                <a
-                                  href={res.project_url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Live
-                                </a>
-                              </Button>
-                              <Button
-                                asChild
-                                variant="outline"
-                                className="w-full border-white/20"
-                              >
-                                <a
-                                  href={res.project_source_code}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Source Code
-                                </a>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </div>
-                      ))}
-                  </>
-                ) : (
-                  <Skeleton className="h-[600px] w-[600px]" />
-                )}
-              </TabsContent>
-              <TabsContent value="music_production"
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl">
-                {myProjectData.length > 0 ? (
-                  <>
-                    {myProjectData
-                      .filter((res, index) =>
-                        res.project_type.some((type) =>
-                          type.name.toLowerCase().includes(["music"]),
-                        ),
-                      )
-                      .map((res) => (
-                        <div key={res.id} className="w-full">
-                          {res.project_type.name}
-                          {/* 2. Ensure Card is a flex container for the Image + Content */}
-                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
-                            <div className="relative w-full aspect-video overflow-hidden">
-                              <div className="absolute top-3 left-3 z-30">
-                                <div className="p-[1px] rounded-lg transition-all shadow-lg">
-                                  <Badge
-                                    variant="secondary"
-                                    className="rounded-md"
-                                  >
-                                    <LiveStatusDot
-                                      status={res.project_live_status}
-                                    />
-                                    {res.project_live_status}
-                                  </Badge>
-                                </div>
-                              </div>
-
-                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
-                              <a
-                                className="cursor-pointer"
-                                onClick={() => {
-                                  router.push(`/projects/${res.project_name}`);
-                                }}
-                              >
-                                <img
-                                  src={res.project_cover_img}
-                                  alt={res.project_name}
-                                  className="w-full h-full object-cover brightness-60 grayscale dark:brightness-40 z-0 transition-transform duration-300 hover:scale-105"
-                                />
-                              </a>
-
-                              <div className="absolute bottom-3 left-3 z-20 flex gap-1">
-                                {res.project_type.map((skill, i) => (
-                                  <Badge
-                                    key={i}
-                                    variant="secondary"
-                                    className="bg-white/20 backdrop-blur-md border-none text-white"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-
-                            <CardHeader className="flex-grow">
-                              <CardTitle className="text-xl font-bold">
-                                {res.project_name}
-                              </CardTitle>
-                              <CardDescription className="line-clamp-4 mt-2">
-                                {res.project_description}
-                              </CardDescription>
-                            </CardHeader>
-
-                            {/* Project Tech Stack */}
-                            <div className="px-4 pb-4 flex flex-wrap gap-1">
-                              {res.project_stack.map((skill, i) => (
-                                <div key={i} className=" p-[1px] rounded-full">
-                                  <Badge
-                                    variant="outline"
-                                    className="bg-background  border-none"
-                                  >
-                                    {skill.name}
-                                  </Badge>
-                                </div>
-                              ))}
-                            </div>
-
-                            <CardFooter className="flex space-x-4 mt-auto">
-                              <Button
-                                asChild
-                                className="w-full bg-green-600 hover:bg-green-700 text-white"
-                              >
-                                <a
-                                  href={res.project_url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Live
-                                </a>
-                              </Button>
-                              <Button
-                                asChild
-                                variant="outline"
-                                className="w-full border-white/20"
-                              >
-                                <a
-                                  href={res.project_source_code}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Source Code
-                                </a>
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        </div>
-                      ))}
-                  </>
-                ) : (
-                  <Skeleton className="h-[600px] w-[600px]" />
-                )}
-              </TabsContent>
-            </Tabs>
-          </div>
+          
         </div>
       </section>
+
+
+      {/*content*/}
+
+      <BlurFade delay={0.25} inView>
+
+        <section className=" flex-wrap flex-col w-full ">
+          <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
+            <div className="">
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl"
+              >
+                {myInterestData?.length > 0 ? (
+                  <>
+                    {myInterestData                   
+                      .map((res) => (
+                        <div key={res.id} className="w-full">
+       
+                          {/* 2. Ensure Card is a flex container for the Image + Content */}
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
+                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+
+                              {/*Card img */}
+                              <a
+                                className="cursor-pointer"
+                                //onClick={() => {
+                                 // router.push(`/projects/${res.interest_name}`);
+                               // }}
+                              >
+                                <Carousel
+                                  plugins={[plugin.current]}
+                                  className="w-full sm:max-w-xs"
+                                  onMouseEnter={plugin.current.stop}
+                                  onMouseLeave={plugin.current.reset}
+                                >
+                                  <CarouselContent>
+                                    {res?.interest_media?.length > 0 ? (
+                                      res.interest_media.map((res, index) => (
+                                        /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
+                                        
+                                        <CarouselItem key={index} className="basis-full">
+                                          <div className="p-1">
+                                            
+                                            <Dialog>
+                                              {/* 1. Trigger: Clicking the card opens the dialog */}
+                                              <DialogTrigger asChild>
+                                                <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                                                  <CardContent className="flex aspect-video items-center justify-center p-0 relative">
+                                                    <img
+                                                      src={res}
+                                                      alt="Project preview"
+                                                      className="h-full w-full object-cover"
+                                                    />
+                                                    
+                                                  </CardContent>
+                                                </Card>
+                                              </DialogTrigger>
+
+                                              {/* 2. Content: The full-size image modal */}
+                                              <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                                                <DialogHeader className="sr-only">
+                                                  <DialogTitle>{res}</DialogTitle>
+                                                </DialogHeader>
+                                                <div className="relative flex items-center justify-center w-full h-full">
+                                                  <img
+                                                    src={res}
+                                                    alt="Full view"
+                                                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                                                  />
+                                                </div>
+                                              </DialogContent>
+                                            </Dialog>
+                                          </div>
+                                        </CarouselItem>
+                                      ))
+                                    ) : (
+                                      <div className="flex items-center justify-center w-full h-40">
+                                        <Skeleton className="h-full w-full" />
+                                      </div>
+                                    )}
+                                  </CarouselContent>
+
+                                  <CarouselPrevious />
+                                  <CarouselNext />
+                                </Carousel>
+                              </a>
+
+                             
+                            </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.interest_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.interest_description}
+                              </CardDescription>
+                            </CardHeader>
+
+                           
+
+                            <CardFooter className="flex space-x-4 mt-auto">
+                              <Button
+                                asChild
+                                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <a
+                                  href={res.interest_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Link
+                                </a>
+                              </Button>
+                              
+                            </CardFooter>
+                          </Card>
+                        </div>
+                      ))}
+                  </>
+                ) : (
+                  <Skeleton className="h-[600px] w-[600px]" />
+                )}
+              </div>
+
+            </div>
+
+
+
+
+
+
+
+          </div>
+        </section>
+      </BlurFade>
+
 
       <Footer />
     </main>

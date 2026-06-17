@@ -124,6 +124,13 @@ export default function LandingPage() {
       to: "to-purple-500",
       href: "/interests",
     },
+    {
+      id:3,
+      label:"My Projects",
+      from:"from-blue-500",
+      to:"to-purple-500",
+      href:"/projects"
+    }
     /*
     {
       id: 3,
