@@ -424,7 +424,7 @@ export default function LandingPage() {
                   myProjectData.project_media.map((res, index) => (
                     /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
                     <CarouselItem key={index} className="basis-full">
-                      <div>
+                      <div className="p-1">
                         <Dialog>
                           {/* 1. Trigger: Clicking the card opens the dialog */}
                           <DialogTrigger asChild>
