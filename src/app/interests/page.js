@@ -207,17 +207,21 @@ export default function LandingPage() {
                     {myInterestData.map((res) => (
                       <div key={res.id} className="w-full">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
-                        <div className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
-                          <div className="relative w-full aspect-video overflow-hidden">
-                            <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                        <div className="m-5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                          {/* Left: header + description (order-2 on small so carousel appears first) */}
+                          <div className="flex flex-col justify-center order-2 lg:order-1">
+                            <div className="text-xl font-bold">
+                              {res.interest_name}
+                            </div>
+                            <div className="line-clamp-4 mt-2">
+                              {res.interest_description}
+                            </div>
+                          </div>
 
-                            {/*Card img */}
-                            <a
-                              className="cursor-pointer"
-                              //onClick={() => {
-                              // router.push(`/projects/${res.interest_name}`);
-                              // }}
-                            >
+                          {/* Right: carousel (order-1 on small so it appears on top) */}
+                          <div className="relative w-full overflow-hidden order-1 lg:order-2">
+                            <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                            <a className="cursor-pointer">
                               <Carousel
                                 plugins={[plugin.current]}
                                 className="w-full"
@@ -227,28 +231,21 @@ export default function LandingPage() {
                                 <CarouselContent>
                                   {res?.interest_media?.length > 0 ? (
                                     res.interest_media.map((res, index) => (
-                                      /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
-
-                                      <CarouselItem
-                                        key={index}
-                                        className="basis-full"
-                                      >
+                                      <CarouselItem key={index} className="basis-full">
                                         <div className="p-1">
                                           <Dialog>
-                                            {/* 1. Trigger: Clicking the card opens the dialog */}
                                             <DialogTrigger asChild>
                                               <div className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
                                                 <div className="flex aspect-video items-center justify-center p-0 relative">
                                                   <img
                                                     src={res}
                                                     alt="Project preview"
-                                                    className=" object-cover object-center h-[600px] w-[600px]"
+                                                    className="object-cover object-center h-[600px] w-[600px]"
                                                   />
                                                 </div>
                                               </div>
                                             </DialogTrigger>
 
-                                            {/* 2. Content: The full-size image modal */}
                                             <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
                                               <DialogHeader className="sr-only">
                                                 <DialogTitle>{res}</DialogTitle>
@@ -276,15 +273,6 @@ export default function LandingPage() {
                                 <CarouselNext />
                               </Carousel>
                             </a>
-                          </div>
-
-                          <div className="flex-grow">
-                            <div className="text-xl font-bold">
-                              {res.interest_name}
-                            </div>
-                            <div className="line-clamp-4 mt-2">
-                              {res.interest_description}
-                            </div>
                           </div>
                         </div>
                       </div>
