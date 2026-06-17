@@ -11,7 +11,7 @@ import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
 import { ChevronDoubleRightIcon, HomeIcon } from "@heroicons/react/20/solid";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +24,6 @@ import Autoplay from "embla-carousel-autoplay";
 import NavDrawer from "../assets/navDrawer";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { GridPattern } from "@/registry/magicui/grid-pattern";
-
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -56,7 +55,6 @@ import {
 import { getInterestsRows } from "../controller/notion";
 
 export default function LandingPage() {
-
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   const { theme } = useTheme();
@@ -72,8 +70,6 @@ export default function LandingPage() {
 
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-
-  
 
   const introSectionButtons = [
     {
@@ -156,7 +152,8 @@ export default function LandingPage() {
   return (
     <main className="h-screen">
       <HomeBtn />
-      <div className="fixed inset-0 -z-10 h-screen w-screen">my 
+      <div className="fixed inset-0 -z-10 h-screen w-screen">
+        my
         {/*<LightRays className="h-screen" >*/}
       </div>
 
@@ -170,19 +167,16 @@ export default function LandingPage() {
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
-
             <NavDrawer
               className=""
               miniTitle={"My"}
               pretext={"> "}
               title={"Interests"}
-
               /*to convert to dynamic */
               typingContent={["Ocularia", "BiteCoin"]}
             />
           </div>
         </div>
-
       </section>
 
       {/* Interests */}
@@ -198,148 +192,112 @@ export default function LandingPage() {
               </span>
             </h1>
           </div>
-
-          
         </div>
       </section>
-
 
       {/*content*/}
 
       <BlurFade delay={0.25} inView>
-
         <section className=" flex-wrap flex-col w-full ">
           <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
             <div className="">
-              <div
-                className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl"
-              >
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl">
                 {myInterestData?.length > 0 ? (
                   <>
-                    {myInterestData                   
-                      .map((res) => (
-                        <div key={res.id} className="w-full">
-       
-                          {/* 2. Ensure Card is a flex container for the Image + Content */}
-                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
-                            <div className="relative w-full aspect-video overflow-hidden">
-                              <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
+                    {myInterestData.map((res) => (
+                      <div key={res.id} className="w-full">
+                        {/* 2. Ensure Card is a flex container for the Image + Content */}
+                        <div className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                          <div className="relative w-full aspect-video overflow-hidden">
+                            <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
 
-                              {/*Card img */}
-                              <a
-                                className="cursor-pointer"
-                                //onClick={() => {
-                                 // router.push(`/projects/${res.interest_name}`);
-                               // }}
+                            {/*Card img */}
+                            <a
+                              className="cursor-pointer"
+                              //onClick={() => {
+                              // router.push(`/projects/${res.interest_name}`);
+                              // }}
+                            >
+                              <Carousel
+                                plugins={[plugin.current]}
+                                className="w-full"
+                                onMouseEnter={plugin.current.stop}
+                                onMouseLeave={plugin.current.reset}
                               >
-                                <Carousel
-                                  plugins={[plugin.current]}
-                                  className="w-full"
-                                  onMouseEnter={plugin.current.stop}
-                                  onMouseLeave={plugin.current.reset}
-                                >
-                                  <CarouselContent>
-                                    {res?.interest_media?.length > 0 ? (
-                                      res.interest_media.map((res, index) => (
-                                        /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
-                                        
-                                        <CarouselItem key={index} className="basis-full">
-                                          <div className="p-1">
-                                            
-                                            <Dialog>
-                                              {/* 1. Trigger: Clicking the card opens the dialog */}
-                                              <DialogTrigger asChild>
-                                                <Card className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
-                                                  <CardContent className="flex aspect-video items-center justify-center p-0 relative">
-                                                    <img
-                                                      src={res}
-                                                      alt="Project preview"
-                                                      className="h-full w-full object-cover object-center"
-                                                    />
-                                                    
-                                                  </CardContent>
-                                                </Card>
-                                              </DialogTrigger>
+                                <CarouselContent>
+                                  {res?.interest_media?.length > 0 ? (
+                                    res.interest_media.map((res, index) => (
+                                      /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
 
-                                              {/* 2. Content: The full-size image modal */}
-                                              <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
-                                                <DialogHeader className="sr-only">
-                                                  <DialogTitle>{res}</DialogTitle>
-                                                </DialogHeader>
-                                                <div className="relative flex items-center justify-center w-full h-full">
+                                      <CarouselItem
+                                        key={index}
+                                        className="basis-full"
+                                      >
+                                        <div className="p-1">
+                                          <Dialog>
+                                            {/* 1. Trigger: Clicking the card opens the dialog */}
+                                            <DialogTrigger asChild>
+                                              <div className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                                                <div className="flex aspect-video items-center justify-center p-0 relative">
                                                   <img
                                                     src={res}
-                                                    alt="Full view"
-                                                    className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                                                    alt="Project preview"
+                                                    className=" object-cover object-center h-[600px] w-[600px]"
                                                   />
                                                 </div>
-                                              </DialogContent>
-                                            </Dialog>
-                                          </div>
-                                        </CarouselItem>
-                                      ))
-                                    ) : (
-                                      <div className="flex items-center justify-center w-full h-40">
-                                        <Skeleton className="h-full w-full" />
-                                      </div>
-                                    )}
-                                  </CarouselContent>
+                                              </div>
+                                            </DialogTrigger>
 
-                                  <CarouselPrevious />
-                                  <CarouselNext />
-                                </Carousel>
-                              </a>
+                                            {/* 2. Content: The full-size image modal */}
+                                            <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                                              <DialogHeader className="sr-only">
+                                                <DialogTitle>{res}</DialogTitle>
+                                              </DialogHeader>
+                                              <div className="relative flex items-center justify-center w-full h-full">
+                                                <img
+                                                  src={res}
+                                                  alt="Full view"
+                                                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                                                />
+                                              </div>
+                                            </DialogContent>
+                                          </Dialog>
+                                        </div>
+                                      </CarouselItem>
+                                    ))
+                                  ) : (
+                                    <div className="flex items-center justify-center w-full h-40">
+                                      <Skeleton className="h-full w-full" />
+                                    </div>
+                                  )}
+                                </CarouselContent>
 
-                             
+                                <CarouselPrevious />
+                                <CarouselNext />
+                              </Carousel>
+                            </a>
+                          </div>
+
+                          <div className="flex-grow">
+                            <div className="text-xl font-bold">
+                              {res.interest_name}
                             </div>
-
-                            <CardHeader className="flex-grow">
-                              <CardTitle className="text-xl font-bold">
-                                {res.interest_name}
-                              </CardTitle>
-                              <CardDescription className="line-clamp-4 mt-2">
-                                {res.interest_description}
-                              </CardDescription>
-                            </CardHeader>
-
-                           
-
-                            <CardFooter className="flex space-x-4 mt-auto">
-                              <Button
-                                asChild
-                                className="w-full bg-green-600 hover:bg-green-700 text-white"
-                              >
-                                <a
-                                  href={res.interest_url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Link
-                                </a>
-                              </Button>
-                              
-                            </CardFooter>
-                          </Card>
+                            <div className="line-clamp-4 mt-2">
+                              {res.interest_description}
+                            </div>
+                          </div>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                   </>
                 ) : (
                   <Skeleton className="h-[600px] w-[600px]" />
                 )}
               </div>
-
             </div>
-
-
-
-
-
-
-
           </div>
         </section>
       </BlurFade>
-
 
       <Footer />
     </main>
