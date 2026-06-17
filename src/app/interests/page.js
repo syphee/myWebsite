@@ -221,36 +221,14 @@ export default function LandingPage() {
                         <div key={res.id} className="w-full">
        
                           {/* 2. Ensure Card is a flex container for the Image + Content */}
-                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col lg:flex-row overflow-hidden relative">
-
-                            {/* Left: Title, Description, Button */}
-                            <CardHeader className="flex-grow lg:w-1/2 justify-center">
-                              <CardTitle className="text-xl font-bold">
-                                {res.interest_name}
-                              </CardTitle>
-                              <CardDescription className="line-clamp-4 mt-2">
-                                {res.interest_description}
-                              </CardDescription>
-                              <Button
-                                asChild
-                                className="bg-green-600 hover:bg-green-700 text-white w-fit"
-                              >
-                                <a
-                                  href={res.interest_url}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  Link
-                                </a>
-                              </Button>
-                            </CardHeader>
-
-                            {/* Right: Carousel */}
-                            <div className="relative lg:w-1/2 w-full aspect-video overflow-hidden">
+                          <Card className="m-5 mx-auto pt-0 h-full flex flex-col overflow-hidden relative">
+                            <div className="relative w-full aspect-video overflow-hidden">
                               <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
 
                               {/*Card img */}
-                              <a className="cursor-pointer">
+                              <a
+                                className="cursor-pointer"
+                              >
                                 <Carousel
                                   plugins={[plugin.current]}
                                   className="w-full"
@@ -305,6 +283,27 @@ export default function LandingPage() {
                                 </Carousel>
                               </a>
                             </div>
+
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-xl font-bold">
+                                {res.interest_name}
+                              </CardTitle>
+                              <CardDescription className="line-clamp-4 mt-2">
+                                {res.interest_description}
+                              </CardDescription>
+                              <Button
+                                asChild
+                                className=" bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <a
+                                  href={res.interest_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  Link
+                                </a>
+                              </Button>
+                            </CardHeader>
 
                            
 
