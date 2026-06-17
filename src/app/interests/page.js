@@ -199,17 +199,17 @@ export default function LandingPage() {
 
       <BlurFade delay={0.25} inView>
         <section className=" flex-wrap flex-col w-full ">
-          <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
+          <div className="max-w-5xl mx-auto px-4 gap-10">
             <div className="">
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl">
+              <div className="grid grid-cols-1 gap-4 max-w-7xl">
                 {myInterestData?.length > 0 ? (
                   <>
                     {myInterestData.map((res) => (
                       <div key={res.id} className="w-full">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
-                        <div className="m-5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                        <div className="m-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                           {/* Left: header + description (order-2 on small so carousel appears first) */}
-                          <div className="flex flex-col justify-center order-2 lg:order-1">
+                          <div className="flex flex-col justify-center order-2 md:order-1">
                             <div className="text-xl font-bold">
                               {res.interest_name}
                             </div>
@@ -219,7 +219,7 @@ export default function LandingPage() {
                           </div>
 
                           {/* Right: carousel (order-1 on small so it appears on top) */}
-                          <div className="relative w-full overflow-hidden order-1 lg:order-2">
+                          <div className="relative w-full overflow-hidden order-1 md:order-2">
                             <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
                             <a className="cursor-pointer">
                               <Carousel
@@ -240,7 +240,7 @@ export default function LandingPage() {
                                                   <img
                                                     src={res}
                                                     alt="Project preview"
-                                                    className="object-cover object-center h-[600px] w-[600px]"
+                                                    className="object-cover object-center h-[300px] w-[300px]"
                                                   />
                                                 </div>
                                               </div>
