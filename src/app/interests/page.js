@@ -209,10 +209,10 @@ export default function LandingPage() {
       <BlurFade delay={0.25} inView>
 
         <section className=" flex-wrap flex-col w-full ">
-          <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
+          <div className="max-w-5xl mx-auto px-4 gap-10">
             <div className="">
               <div
-                className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl"
+                className="grid grid-cols-1 gap-4"
               >
                 {myInterestData?.length > 0 ? (
                   <>
