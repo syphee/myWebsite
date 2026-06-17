@@ -234,7 +234,7 @@ export default function LandingPage() {
                               >
                                 <Carousel
                                   plugins={[plugin.current]}
-                                  className=" w-full sm:max-w-xs"
+                                  className="w-full"
                                   onMouseEnter={plugin.current.stop}
                                   onMouseLeave={plugin.current.reset}
                                 >
