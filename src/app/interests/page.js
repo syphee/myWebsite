@@ -234,7 +234,7 @@ export default function LandingPage() {
                               >
                                 <Carousel
                                   plugins={[plugin.current]}
-                                  className="w-full sm:max-w-xs"
+                                  className=" w-full sm:max-w-xs"
                                   onMouseEnter={plugin.current.stop}
                                   onMouseLeave={plugin.current.reset}
                                 >
@@ -254,7 +254,7 @@ export default function LandingPage() {
                                                     <img
                                                       src={res}
                                                       alt="Project preview"
-                                                      className="h-full w-full object-cover"
+                                                      className="h-full w-full object-cover object-center"
                                                     />
                                                     
                                                   </CardContent>
