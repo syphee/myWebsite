@@ -212,7 +212,7 @@ export default function LandingPage() {
           <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
             <div className="">
               <div
-                className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl"
+                className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-7xl"
               >
                 {myInterestData?.length > 0 ? (
                   <>
@@ -244,7 +244,7 @@ export default function LandingPage() {
                                         /* Use basis-full to show 1 slide at a time, or basis-1/2 for two */
                                         
                                         <CarouselItem key={index} className="basis-full">
-                                          <div className="p-1">
+                                          <div>
                                             
                                             <Dialog>
                                               {/* 1. Trigger: Clicking the card opens the dialog */}
