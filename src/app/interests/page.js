@@ -203,12 +203,12 @@ export default function LandingPage() {
               <div className="grid grid-cols-1 gap-4 max-w-7xl">
                 {myInterestData?.length > 0 ? (
                   <>
-                    {myInterestData.map((res) => (
+                    {myInterestData.map((res, index) => (
                       <div key={res.id} className="w-full">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
                         <div className="m-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                          {/* Left: header + description (order-2 on small so carousel appears first) */}
-                          <div className="flex flex-col justify-center order-2 md:order-1">
+                          {/* Description — left on even, right on odd */}
+                          <div className={`flex flex-col justify-center order-2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
                             <div className="text-xl font-bold">
                               {res.interest_name}
                             </div>
@@ -217,8 +217,8 @@ export default function LandingPage() {
                             </div>
                           </div>
 
-                          {/* Right: carousel (order-1 on small so it appears on top) */}
-                          <div className="relative w-full overflow-hidden order-1 md:order-2">
+                          {/* Carousel — right on even, left on odd */}
+                          <div className={`relative w-full overflow-hidden order-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
                             <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
                             <a className="cursor-pointer">
                               <Carousel
