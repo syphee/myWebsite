@@ -153,7 +153,6 @@ export default function LandingPage() {
     <main className="h-screen">
       <HomeBtn />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
-        my
         {/*<LightRays className="h-screen" >*/}
       </div>
 
@@ -199,7 +198,7 @@ export default function LandingPage() {
 
       <BlurFade delay={0.25} inView>
         <section className=" flex-wrap flex-col w-full ">
-          <div className="max-w-5xl mx-auto px-4 gap-10">
+          <div className="max-w-3xl mx-auto px-4 gap-10">
             <div className="">
               <div className="grid grid-cols-1 gap-4 max-w-7xl">
                 {myInterestData?.length > 0 ? (
