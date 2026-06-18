@@ -143,7 +143,7 @@ export default function LandingPage() {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
-    <main className="h-screen">
+    <main className="h-screen pb-16">
       <div className="fixed inset-0 -z-10 h-screen w-screen">
         { /*<LightRays className="h-screen" />*/}
       </div>

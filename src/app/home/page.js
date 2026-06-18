@@ -182,7 +182,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="h-screen">
+    <main className="h-screen pb-16">
       <div className="fixed inset-0 -z-10 h-screen w-screen">
         {/*<LightRays className="h-screen" />*/}
       </div>

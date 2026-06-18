@@ -52,7 +52,7 @@ export default function LandingPage() {
     return (
         <>
         
-<main className={` h-screen w-screen duration-500 `}>
+<main className={` h-screen w-screen pb-16 duration-500 `}>
 
             <div className="flex justify-center">
                 <HomeBtn />
