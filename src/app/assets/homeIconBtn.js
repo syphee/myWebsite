@@ -4,10 +4,10 @@ import { Bars3Icon, HomeIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { title: "Home",      href: "/home",      external: false },
-  { title: "Projects",  href: "/projects",  external: false },
-  { title: "Interests", href: "/interests", external: false },
-  { title: "LinkedIn",  href: "https://www.linkedin.com/feed/", external: true },
+  { title: "Home",           href: "/home",      external: false },
+  { title: "Projects",       href: "/projects",  external: false },
+  { title: "Interests",      href: "/interests", external: false },
+  { title: "LinkedIn",       href: "https://www.linkedin.com/feed/", external: true },
   { title: "Let's connect!", href: "mailto:jameslandicho5@gmail.com?subject=Subject&body=Hi!%20Let%27s%20connect!", external: true },
 ];
 
@@ -15,11 +15,7 @@ export default function HomeBtn() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
@@ -40,65 +36,58 @@ export default function HomeBtn() {
         </div>
       </div>
 
-      {/* Backdrop overlay */}
+      {/* Full-screen glass overlay */}
       <div
-        className={`fixed inset-0 z-[100] transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[100] transition-opacity duration-300 ease-in-out ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
       >
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-      </div>
+        {/* Glass background — click outside links to close */}
+        <div
+          className="absolute inset-0 bg-black/50 backdrop-blur-xl"
+          onClick={() => setOpen(false)}
+        />
 
-      {/* Glass panel */}
-      <div
-        className={`fixed top-0 left-0 h-full w-72 z-[110] flex flex-col transition-transform duration-300 ease-in-out ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="h-full bg-white/10 backdrop-blur-xl border-r border-white/20 shadow-2xl flex flex-col p-8">
-          {/* Close button */}
-          <button
-            onClick={() => setOpen(false)}
-            className="self-end text-white/70 hover:text-white transition-colors duration-200 mb-10"
-            aria-label="Close menu"
-          >
-            <XMarkIcon className="w-6 h-6" />
-          </button>
+        {/* Close button */}
+        <button
+          onClick={() => setOpen(false)}
+          className="absolute top-5 right-5 text-white/60 hover:text-white transition-colors duration-200"
+          aria-label="Close menu"
+        >
+          <XMarkIcon className="w-7 h-7" />
+        </button>
 
-          {/* Nav links */}
-          <nav className="flex flex-col gap-6">
-            {navLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.title}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="text-white/60 hover:text-white text-lg font-light tracking-wide transition-colors duration-200 hover:translate-x-1 transform"
-                >
-                  {link.title}
-                </a>
-              ) : (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-white/60 hover:text-white text-lg font-light tracking-wide transition-colors duration-200 hover:translate-x-1 transform"
-                >
-                  {link.title}
-                </Link>
-              )
-            )}
-          </nav>
-
-          {/* Bottom accent */}
-          <div className="mt-auto pt-8 border-t border-white/10">
-            <p className="text-white/30 text-xs tracking-widest uppercase">James Landicho</p>
-          </div>
+        {/* Centred nav links */}
+        <div className="relative h-full flex flex-col items-center justify-center gap-8">
+          {navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.title}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="text-white/50 hover:text-white text-3xl md:text-5xl font-light tracking-widest transition-colors duration-200"
+              >
+                {link.title}
+              </a>
+            ) : (
+              <Link
+                key={link.title}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-white/50 hover:text-white text-3xl md:text-5xl font-light tracking-widest transition-colors duration-200"
+              >
+                {link.title}
+              </Link>
+            )
+          )}
         </div>
+
+        {/* Bottom name tag */}
+        <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/20 text-xs tracking-widest uppercase">
+          James Landicho
+        </p>
       </div>
     </>
   );
