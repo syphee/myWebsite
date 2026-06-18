@@ -169,12 +169,12 @@ export default function LandingPage() {
         <div className="z-10 h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
             <NavDrawer
+              key={typingContent.join(",")}
               className=""
               miniTitle={"My"}
               pretext={"> "}
               title={"Interests"}
-              /*to convert to dynamic */
-              typingContent={typingContent ?? "Loading.."}
+              typingContent={typingContent.length > 0 ? typingContent : ["..."]}
             />
           </div>
         </div>
