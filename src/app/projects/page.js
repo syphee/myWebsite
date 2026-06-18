@@ -152,17 +152,18 @@ export default function LandingPage() {
       <section className=" flex-wrap flex-col w-full ">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
-          <div>
-            <h1 className="font-bold text-2xl ">
-              My
-              <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">
-                Projects
-              </span>
-            </h1>
-          </div>
+          
 
-          <div className="w-full ">
+          <div className="w-full">
             <Tabs defaultValue="web_app" className="max-w-7xl">
+              <div className="sticky top-0 z-40 py-4 bg-black/60 backdrop-blur-md">
+                <h1 className="font-bold text-2xl ">
+                  My
+                  <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">
+                    Projects
+                  </span>
+                </h1>
+              
               <TabsList>
                 <TabsTrigger
                   value="web_app"
@@ -201,6 +202,7 @@ export default function LandingPage() {
                   Music Production
                 </TabsTrigger>
               </TabsList>
+                </div>
               {/* 1. Change container to grid for 2 columns of cards */}
               <TabsContent
                 value="web_app"
