@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
+import TimeLineSelector from "../assets/timelineSelector";
 import { BlurFade } from "@/registry/magicui/blur-fade";
 
 import HomeBtn from "../assets/homeIconBtn";
@@ -153,6 +154,7 @@ export default function LandingPage() {
 
   return (
     <main className="h-screen pb-16">
+      <TimeLineSelector />
       <HomeBtn />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
         {/*<LightRays className="h-screen" >*/}
@@ -164,7 +166,7 @@ export default function LandingPage() {
       {/* <NavDrawer miniTitle={"I am,"} title={"James Landicho"} /> */}
 
       {/* Landing */}
-      <section className="relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+      <section id="hero" className="pageContent relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
@@ -182,7 +184,7 @@ export default function LandingPage() {
 
       {/* Interests */}
 
-      <section className=" flex-wrap flex-col w-full ">
+      <section id="interests" className="pageContent flex-wrap flex-col w-full">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
           <div>

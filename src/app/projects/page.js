@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
+import TimeLineSelector from "../assets/timelineSelector";
 
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
@@ -118,6 +119,7 @@ export default function LandingPage() {
 
   return (
     <main className="h-screen pb-16">
+      <TimeLineSelector />
       <HomeBtn />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
        {/* <LightRays className="h-screen" />*/}
@@ -129,7 +131,7 @@ export default function LandingPage() {
       {/* <NavDrawer miniTitle={"I am,"} title={"James Landicho"} /> */}
 
       {/* Landing */}
-      <section className="relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+      <section id="hero" className="pageContent relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
@@ -149,14 +151,14 @@ export default function LandingPage() {
 
       {/* Work Experiences */}
 
-      <section className=" flex-wrap flex-col w-full ">
+      <section id="projects" className="pageContent flex-wrap flex-col w-full">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
           
 
           <div className="w-full">
             <Tabs defaultValue="web_app" className="max-w-7xl">
-              <div className="sticky top-14 z-40 py-4 bg-black/60 backdrop-blur-md">
+              <div className="sticky top-14 z-40 py-4 bg-slate/10 backdrop-blur-sm">
                 <h1 className="font-bold text-2xl ">
                   My
                   <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">

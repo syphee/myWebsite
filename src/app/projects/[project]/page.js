@@ -33,6 +33,7 @@ import {
 
 import Header from "../../assets/header";
 import Footer from "../../assets/footer";
+import TimeLineSelector from "../../assets/timelineSelector";
 
 import HomeBtn from "../../assets/homeIconBtn";
 import "../../assets/home.css";
@@ -144,6 +145,7 @@ export default function LandingPage() {
 
   return (
     <main className="h-screen pb-16">
+      <TimeLineSelector />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
         { /*<LightRays className="h-screen" />*/}
       </div>
@@ -157,7 +159,7 @@ export default function LandingPage() {
 
       {/* Landing */}
       <BlurFade delay={0.25} inView>
-        <section className="relative flex min-h-screen w-full flex-col overflow-hidden rounded-lg">
+        <section id="hero" className="pageContent relative flex min-h-screen w-full flex-col overflow-hidden rounded-lg">
           {/* Content Layer */}
           <div className="z-10  m-auto w-full max-w-2xl ">
             <div className="flex flex-wrap flex-rows flex-spacing-5">
@@ -268,7 +270,7 @@ export default function LandingPage() {
 
           <div className="relative z-10 pb-20">
             {/* 2. HERO SECTION - Glass Card Header */}
-            <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
+            <section id="overview" className="pageContent pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
               <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
                 {myProjectData.project_name}
               </h1>
@@ -403,7 +405,7 @@ export default function LandingPage() {
 
             {/* 2. HERO SECTION - Glass Card Header */}
             {myProjectData?.project_media != null &&(
-        <section className="pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
+        <section id="snippets" className="pageContent pt-32 pb-12 px-6 max-w-5xl mx-auto text-center">
           <h1 className="text-6xl md:text-5xl font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
             Project Snippets
           </h1>

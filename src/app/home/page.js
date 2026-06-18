@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 
 import Footer from "../assets/footer";
+import TimeLineSelector from "../assets/timelineSelector";
 
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
@@ -183,6 +184,7 @@ export default function LandingPage() {
 
   return (
     <main className="h-screen pb-16">
+      <TimeLineSelector />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
         {/*<LightRays className="h-screen" />*/}
       </div>
@@ -196,7 +198,7 @@ export default function LandingPage() {
 
       {/* Landing */}
       <BlurFade delay={0.25} inView>
-        <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+        <section id="hero" className="pageContent relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg">
           {/* Content Layer */}
           <div className="z-10 h-auto m-auto">
             <div className="flex flex-wrap flex-col flex-spacing-5 items-center">
@@ -214,7 +216,7 @@ export default function LandingPage() {
 
       {/* About me short */}
       <BlurFade delay={0.25} inView>
-        <section className="relative h-screen flex justify-center w-full">
+        <section id="about" className="pageContent relative h-screen flex justify-center w-full">
           <div className="max-w-7xl mx-auto px-4  md:flex-row items-center gap-10">
             <div className="">
               <Image
@@ -268,7 +270,7 @@ export default function LandingPage() {
 
       {/* My projects */}
       <BlurFade delay={0.25} inView>
-        <section className=" flex-wrap flex-col w-full ">
+        <section id="projects" className="pageContent flex-wrap flex-col w-full">
           <div className="max-w-7xl mx-auto px-4  md:flex-row  gap-10">
             {/* header */}
             <div>
@@ -422,7 +424,7 @@ export default function LandingPage() {
       </BlurFade>
 
       <BlurFade delay={0.25} inView>
-        <section className="w-full my-10">
+        <section id="stack" className="pageContent w-full my-10">
           <div className="max-w-6xl mx-auto ">
             <h1 className="font-bold text-2xl text-center mb-10">
               My Tech Stacks
@@ -497,7 +499,7 @@ export default function LandingPage() {
 
       {/* Work Experiences */}
       <BlurFade delay={0.25} inView>
-        <section className=" flex-wrap flex-col w-full my-5">
+        <section id="work" className="pageContent flex-wrap flex-col w-full my-5">
           <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
             <div>
               <h1 className="font-bold text-2xl">

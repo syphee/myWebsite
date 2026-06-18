@@ -21,7 +21,7 @@ export default function HomeBtn() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-sm">
+      <div className="fixed top-0 left-0 w-full z-50 bg-slate/10 backdrop-blur-sm">
         <div className="flex">
           <Link href="/home">
             <HomeIcon className="cursor-pointer w-6 h-6 m-5 text-white hover:text-sky-400 transition-colors duration-500" />
