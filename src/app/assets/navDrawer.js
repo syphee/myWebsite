@@ -24,6 +24,12 @@ export default function NavDrawer({
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    setText("");
+    setWordIndex(0);
+    setIsDeleting(false);
+  }, [typingContent]);
+
+  useEffect(() => {
     const currentWord = words[wordIndex];
     let timeout;
 

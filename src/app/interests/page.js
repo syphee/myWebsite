@@ -111,6 +111,7 @@ export default function LandingPage() {
   }, [api]);
 
   const [myInterestData, setMyInterestData] = useState([]);
+  const [typingContent, setTypingContent] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,6 +121,7 @@ export default function LandingPage() {
         const payload = [fetchInterests];
         Promise.all(payload).then((result) => {
           setMyInterestData(result[0]);
+          setTypingContent(result[0].map((res) => res.interest_name));
         });
       } catch (error) {
         console.error("Failed to fetch Notion data:", error);
@@ -172,7 +174,7 @@ export default function LandingPage() {
               pretext={"> "}
               title={"Interests"}
               /*to convert to dynamic */
-              typingContent={["Ocularia", "BiteCoin"]}
+              typingContent={typingContent ?? "Loading.."}
             />
           </div>
         </div>
@@ -204,7 +206,7 @@ export default function LandingPage() {
                 {myInterestData?.length > 0 ? (
                   <>
                     {myInterestData.map((res, index) => (
-                      <div key={res.id} className="w-full">
+                      <div key={res.id} className="">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
                         <div className="m-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                           {/* Description — left on even, right on odd */}
@@ -215,6 +217,16 @@ export default function LandingPage() {
                             <div className="line-clamp-4 mt-2">
                               {res.interest_description}
                             </div>
+
+
+                            {res?.interest_url && (<><div className=" text-white rounded-[7px] px-6 py-2 mt-5
+                              ">
+                              <a href={`${res.interest_url}`} target="_blank" rel="noreferrer" className="rounded-[7px] px-1 py-3 font-semibold ">
+                                View
+                              </a>
+                            </div></>) }
+                            
+                            
                           </div>
 
                           {/* Carousel — right on even, left on odd */}
