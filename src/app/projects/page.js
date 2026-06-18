@@ -76,6 +76,7 @@ export default function LandingPage() {
   }, [api]);
 
   const [myProjectData, setMyProjectData] = useState([]);
+  const [typingContent, setTypingContent] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +86,7 @@ export default function LandingPage() {
         const payload = [fetchProjects];
         Promise.all(payload).then((result) => {
           setMyProjectData(result[0]);
+          setTypingContent(result[0].map((p) => p.project_name));
         });
       } catch (error) {
         console.error("Failed to fetch Notion data:", error);
@@ -133,11 +135,12 @@ export default function LandingPage() {
           <div className="flex flex-wrap flex-rows flex-spacing-5 items-center">
            
             <NavDrawer
+              key={typingContent.join(",")}
               className=""
               miniTitle={"My"}
               pretext={"> "}
               title={"Projects"}
-              typingContent={["Ocularia", "BiteCoin"]}
+              typingContent={typingContent.length > 0 ? typingContent : ["..."]}
             />
           </div>
         </div>
