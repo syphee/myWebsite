@@ -83,14 +83,16 @@ export default function TimeLineSelector({ returnHeight = () => {} }) {
                 showLabel
                   ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-2 pointer-events-none'
-              } ${isActive ? 'text-sky-400' : 'text-white/60'}`}
+              } ${isActive
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent'
+                  : 'text-white/60'}`}
             >
               {toLabel(item)}
             </span>
 
             <div className={`rounded-full flex-shrink-0 transition-all duration-500 ease-in-out ${
               isActive
-                ? 'bg-sky-400 w-3 h-3 animate-pulse shadow-[0_0_8px_2px_rgba(56,189,248,0.6)]'
+                ? 'bg-gradient-to-b from-blue-500 to-purple-500 w-3 h-3 animate-pulse shadow-[0_0_8px_2px_rgba(139,92,246,0.6)]'
                 : 'bg-white/40 w-2 h-2 group-hover:bg-white group-hover:w-3 group-hover:h-3'
             }`} />
           </Link>
