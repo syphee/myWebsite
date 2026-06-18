@@ -120,7 +120,7 @@ export default function LandingPage() {
     <main className="h-screen">
       <HomeBtn />
       <div className="fixed inset-0 -z-10 h-screen w-screen">
-        <LightRays className="h-screen" />
+       {/* <LightRays className="h-screen" />*/}
       </div>
 
       {/* https://www.framer.com/motion/examples/ */}
