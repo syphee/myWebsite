@@ -67,7 +67,7 @@ export default function NavDrawer({
           </h1>
           <h2 className="font-mono text-xl md:text-4xl leading-tight">
             {pretext}
-            <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent ">
               {text}
             </span>
             <span className="ml-1 animate-blink">|</span>

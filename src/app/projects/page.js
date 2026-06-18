@@ -6,6 +6,7 @@ import Image from "next/image";
 import Header from "../assets/header";
 import Footer from "../assets/footer";
 import TimeLineSelector from "../assets/timelineSelector";
+import { BlurFade } from "@/registry/magicui/blur-fade";
 
 import HomeBtn from "../assets/homeIconBtn";
 import "../assets/home.css";
@@ -131,6 +132,8 @@ export default function LandingPage() {
       {/* <NavDrawer miniTitle={"I am,"} title={"James Landicho"} /> */}
 
       {/* Landing */}
+      <BlurFade delay={0.25} inView>
+
       <section id="hero" className="pageContent relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
@@ -148,8 +151,10 @@ export default function LandingPage() {
         </div>
 
       </section>
+      </BlurFade>
 
       {/* Work Experiences */}
+      <BlurFade delay={0.25} inView>
 
       <section id="projects" className="pageContent flex-wrap flex-col w-full">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
@@ -219,6 +224,8 @@ export default function LandingPage() {
                         ),
                       )
                       .map((res) => (
+                        <BlurFade  key={res.id} delay={0.25} inView>
+
                         <div key={res.id} className="w-full">
                           {res.project_type.name}
                           {/* 2. Ensure Card is a flex container for the Image + Content */}
@@ -317,6 +324,7 @@ export default function LandingPage() {
                             </CardFooter>
                           </Card>
                         </div>
+                        </BlurFade>
                       ))}
                   </>
                 ) : (
@@ -335,6 +343,8 @@ export default function LandingPage() {
                         ),
                       )
                       .map((res) => (
+                        <BlurFade  key={res.id} delay={0.25} inView>
+
                         <div key={res.id} className="w-full">
                           {res.project_type.name}
                           {/* 2. Ensure Card is a flex container for the Image + Content */}
@@ -433,6 +443,7 @@ export default function LandingPage() {
                             </CardFooter>
                           </Card>
                         </div>
+                        </BlurFade>
                       ))}
                   </>
                 ) : (
@@ -450,6 +461,8 @@ export default function LandingPage() {
                         ),
                       )
                       .map((res) => (
+                        <BlurFade  key={res.id} delay={0.25} inView>
+
                         <div key={res.id} className="w-full">
                           {res.project_type.name}
                           {/* 2. Ensure Card is a flex container for the Image + Content */}
@@ -548,6 +561,7 @@ export default function LandingPage() {
                             </CardFooter>
                           </Card>
                         </div>
+                        </BlurFade>
                       ))}
                   </>
                 ) : (
@@ -558,7 +572,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
+      </BlurFade>
       <Footer />
     </main>
   );

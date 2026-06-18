@@ -2,6 +2,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { Safari } from "@/registry/magicui/safari";
+
 import {
   Dialog,
   DialogContent,
@@ -159,12 +160,15 @@ export default function LandingPage() {
 
       {/* Landing */}
       <BlurFade delay={0.25} inView>
-        <section id="hero" className="pageContent relative flex min-h-screen w-full flex-col overflow-hidden rounded-lg">
+        <section id="hero" className="pageContent relative flex min-h-screen w-full flex-col overflow-hidden rounded-lg ">
           {/* Content Layer */}
           <div className="z-10  m-auto w-full max-w-2xl ">
             <div className="flex flex-wrap flex-rows flex-spacing-5">
               <div className="absolute inset-0 -z-10 bg-black-500/50 blur-[80px] rounded-full scale-50" />
 
+              {/*extra gap lol */}
+              <div className="mt-10"/>
+              
               <NavDrawer
                 className="relative" // Ensure parent is relative
                 miniTitle={""}
@@ -208,7 +212,7 @@ export default function LandingPage() {
                 isLooping={false}
               />
 
-              <div className="flex flex-row items-center justify-center gap-8 w-full py-10">
+              <div className="flex flex-row items-center justify-center gap-8 w-full py-5">
                 {myProjectData?.project_type?.length ? (
                   myProjectData.project_type.map((type, index) => {
                     if (type.name === "Mobile") {

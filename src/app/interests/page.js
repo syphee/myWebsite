@@ -166,6 +166,7 @@ export default function LandingPage() {
       {/* <NavDrawer miniTitle={"I am,"} title={"James Landicho"} /> */}
 
       {/* Landing */}
+      <BlurFade delay={0.25} inView>
       <section id="hero" className="pageContent relative flex min-h-screen mb-10 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
         {/* Content Layer */}
         <div className="z-10 h-auto m-auto">
@@ -181,9 +182,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
+      </BlurFade>
       {/* Interests */}
 
+      <BlurFade delay={0.25} inView>
       <section id="interests" className="pageContent flex-wrap flex-col w-full">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
@@ -197,6 +199,7 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      </BlurFade>
 
       {/*content*/}
 
@@ -208,6 +211,7 @@ export default function LandingPage() {
                 {myInterestData?.length > 0 ? (
                   <>
                     {myInterestData.map((res, index) => (
+                    <BlurFade key={res.id} delay={0.25} inView>
                       <div key={res.id} className="">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
                         <div className="m-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -289,6 +293,7 @@ export default function LandingPage() {
                           </div>
                         </div>
                       </div>
+                    </BlurFade>
                     ))}
                   </>
                 ) : (
