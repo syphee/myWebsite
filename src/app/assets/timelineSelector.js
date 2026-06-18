@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 const toLabel = (id) =>
   id.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -9,31 +9,59 @@ export default function TimeLineSelector({ returnHeight = () => {} }) {
   const [ids, setIds] = useState([])
   const [circleIndex, setCircleIndex] = useState(0)
   const [hoveredIndex, setHoveredIndex] = useState(null)
+  const elementsRef = useRef([])
 
   useEffect(() => {
     const pageContent = document.querySelectorAll('.pageContent')
     const arrInput = []
-    pageContent.forEach(el => arrInput.push(el.id))
+    elementsRef.current = []
+    pageContent.forEach(el => {
+      arrInput.push(el.id)
+      elementsRef.current.push(el)
+    })
     setIds(arrInput)
   }, [])
 
   useEffect(() => {
     const handleScroll = () => {
-      const height = window.scrollY
-      const selectedDot = Math.trunc(height / window.innerHeight)
-      setCircleIndex(selectedDot)
-      returnHeight(height)
+      const scrollY = window.scrollY
+      returnHeight(scrollY)
+
+      const viewportMid = window.innerHeight * 0.35
+
+      let bestIndex = 0
+      let bestDistance = Infinity
+
+      elementsRef.current.forEach((el, index) => {
+        const rect = el.getBoundingClientRect()
+        // Distance from the element's top edge to 35% down the viewport
+        const distance = Math.abs(rect.top - viewportMid)
+        // Prefer sections whose top has already entered the upper 35% of screen
+        if (rect.top <= viewportMid && distance < bestDistance) {
+          bestDistance = distance
+          bestIndex = index
+        } else if (bestDistance === Infinity) {
+          // Nothing above threshold yet — pick the closest one below
+          if (distance < bestDistance) {
+            bestDistance = distance
+            bestIndex = index
+          }
+        }
+      })
+
+      setCircleIndex(bestIndex)
     }
 
     const timer = setTimeout(() => {
-      window.addEventListener('scroll', handleScroll)
-    }, 500)
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      handleScroll()
+    }, 300)
 
     return () => {
       clearTimeout(timer)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [returnHeight])
+  }, [ids, returnHeight])
 
   return (
     <div className="fixed top-1/2 -translate-y-1/2 right-4 z-50 flex flex-col items-end gap-4">
@@ -50,7 +78,6 @@ export default function TimeLineSelector({ returnHeight = () => {} }) {
             onMouseLeave={() => setHoveredIndex(null)}
             className="flex items-center gap-2 group"
           >
-            {/* Label */}
             <span
               className={`text-xs font-light tracking-widest uppercase transition-all duration-300 whitespace-nowrap ${
                 showLabel
@@ -61,7 +88,6 @@ export default function TimeLineSelector({ returnHeight = () => {} }) {
               {toLabel(item)}
             </span>
 
-            {/* Dot */}
             <div className={`rounded-full flex-shrink-0 transition-all duration-500 ease-in-out ${
               isActive
                 ? 'bg-sky-400 w-3 h-3 animate-pulse shadow-[0_0_8px_2px_rgba(56,189,248,0.6)]'
