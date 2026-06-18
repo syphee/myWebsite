@@ -497,7 +497,7 @@ export default function LandingPage() {
 
       {/* Work Experiences */}
       <BlurFade delay={0.25} inView>
-        <section className=" flex-wrap flex-col w-full ">
+        <section className=" flex-wrap flex-col w-full my-5">
           <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
             <div>
               <h1 className="font-bold text-2xl">
