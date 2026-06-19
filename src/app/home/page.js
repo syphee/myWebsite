@@ -216,9 +216,9 @@ export default function LandingPage() {
 
       {/* About me short */}
       <BlurFade delay={0.25} inView>
-        <section id="about" className="pageContent relative h-screen flex justify-center w-full">
-          <div className="max-w-7xl mx-auto px-4  md:flex-row items-center gap-10">
-            <div className="">
+        <section id="about" className="pageContent relative flex justify-center w-full">
+          <div className="max-w-4xl mx-auto px-4  md:flex-row items-center gap-10">
+            <div className="justify-center">
               <Image
                 src={PortraitPic_lg}
                 width={500}
@@ -274,8 +274,8 @@ export default function LandingPage() {
 
       {/* My projects */}
       <BlurFade delay={0.25} inView>
-        <section id="projects" className="pageContent flex-wrap flex-col w-full">
-          <div className="max-w-7xl mx-auto px-4  md:flex-row  gap-10">
+        <section id="projects" className="pageContent my-10 flex-wrap flex-col w-full">
+          <div className="max-w-4xl mx-auto px-4  md:flex-row  gap-10">
             {/* header */}
             <div>
               <h1 className="font-bold text-2xl">
@@ -429,7 +429,7 @@ export default function LandingPage() {
 
       <BlurFade delay={0.25} inView>
         <section id="stack" className="pageContent w-full my-10">
-          <div className="max-w-6xl mx-auto ">
+          <div className="max-w-4xl mx-auto ">
             <h1 className="font-bold text-2xl text-center mb-10">
               My Tech Stacks
             </h1>
