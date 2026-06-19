@@ -7,8 +7,10 @@ const navLinks = [
   { title: "Home",           href: "/home",      external: false },
   { title: "Projects",       href: "/projects",  external: false },
   { title: "Interests",      href: "/interests", external: false },
+  { title: "My Resume",      href: "https://drive.google.com/drive/folders/1mUwdn1UGCajcVTWETFUx0VYpG2D2teDv", external: true },
   { title: "LinkedIn",       href: "https://www.linkedin.com/feed/", external: true },
   { title: "Let's connect!", href: "mailto:jameslandicho5@gmail.com?subject=Subject&body=Hi!%20Let%27s%20connect!", external: true },
+  
 ];
 
 export default function HomeBtn() {
@@ -60,6 +62,7 @@ export default function HomeBtn() {
 
         {/* Centred nav links */}
         <div className="relative h-full flex flex-col items-center justify-center gap-8">
+          <hr className="border-gray-300 my-6"/>
           {navLinks.map((link) =>
             link.external ? (
               <a
@@ -83,6 +86,7 @@ export default function HomeBtn() {
               </Link>
             )
           )}
+          <hr className="border-gray-300 my-6"/>
         </div>
 
         {/* Bottom name tag */}
