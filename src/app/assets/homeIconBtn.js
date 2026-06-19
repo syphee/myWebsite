@@ -28,10 +28,10 @@ export default function HomeBtn() {
           </Link>
           <button
             onClick={() => setOpen(true)}
-            className="w-6 h-6 m-5 text-white hover:text-sky-400 transition-colors duration-500"
+            className="w-6 h-6 m-5 text-white hover:text-sky-400 cursor-pointer transition-colors duration-500"
             aria-label="Open menu"
           >
-            <Bars3Icon />
+            <Bars3Icon  />
           </button>
         </div>
       </div>
