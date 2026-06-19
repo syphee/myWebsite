@@ -56,7 +56,7 @@ import {
 import { getInterestsRows } from "../controller/notion";
 
 export default function LandingPage() {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 1000, stopOnInteraction: false }));
 
   const { theme } = useTheme();
   function hideNav() {
@@ -152,6 +152,68 @@ export default function LandingPage() {
     );
   };
 
+  const InterestCarousel = ({media=null}) => {
+    const autoplay = useRef(
+      Autoplay({
+        delay: 3000,
+        stopOnInteraction: false,
+      })
+    );
+    console.log(media)
+    return (
+      <Carousel
+        plugins={[autoplay.current]}
+        className="w-full"
+        onMouseEnter={autoplay.current.stop}
+        onMouseLeave={autoplay.current.reset}
+      >
+        <CarouselContent>
+          {media?.interest_media?.length > 0 ? (
+            media.interest_media.map((res, index) => (
+              <CarouselItem key={index} className="basis-full">
+                <div className="p-1">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                        <div className="flex aspect-video items-center justify-center p-0 relative">
+                          <img
+                            src={res}
+                            alt="Project preview"
+                            className="object-cover object-center h-[300px] w-[300px]"
+                          />
+                        </div>
+                      </div>
+                    </DialogTrigger>
+
+                    <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
+                      <DialogHeader className="sr-only">
+                        <DialogTitle>{res}</DialogTitle>
+                      </DialogHeader>
+                      <div className="relative flex items-center justify-center w-full h-full">
+                        <img
+                          src={res}
+                          alt="Full view"
+                          className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </CarouselItem>
+            ))
+          ) : (
+            <div className="flex items-center justify-center w-full h-40">
+              <Skeleton className="h-full w-full" />
+            </div>
+          )}
+        </CarouselContent>
+
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    );
+  }
+
   return (
     <main className="h-screen pb-16">
       <TimeLineSelector />
@@ -220,7 +282,7 @@ export default function LandingPage() {
                             <div className="text-xl font-bold">
                               {res.interest_name}
                             </div>
-                            <div className="line-clamp-4 mt-2">
+                            <div className=" mt-2">
                               {res.interest_description}
                             </div>
 
@@ -239,56 +301,7 @@ export default function LandingPage() {
                           <div className={`relative w-full overflow-hidden order-1 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
                             <div className="absolute inset-0 bg-black/35 z-10 pointer-events-none" />
                             <a className="cursor-pointer">
-                              <Carousel
-                                plugins={[plugin.current]}
-                                className="w-full"
-                                onMouseEnter={plugin.current.stop}
-                                onMouseLeave={plugin.current.reset}
-                              >
-                                <CarouselContent>
-                                  {res?.interest_media?.length > 0 ? (
-                                    res.interest_media.map((res, index) => (
-                                      <CarouselItem key={index} className="basis-full">
-                                        <div className="p-1">
-                                          <Dialog>
-                                            <DialogTrigger asChild>
-                                              <div className="overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
-                                                <div className="flex aspect-video items-center justify-center p-0 relative">
-                                                  <img
-                                                    src={res}
-                                                    alt="Project preview"
-                                                    className="object-cover object-center h-[300px] w-[300px]"
-                                                  />
-                                                </div>
-                                              </div>
-                                            </DialogTrigger>
-
-                                            <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 border-none bg-transparent">
-                                              <DialogHeader className="sr-only">
-                                                <DialogTitle>{res}</DialogTitle>
-                                              </DialogHeader>
-                                              <div className="relative flex items-center justify-center w-full h-full">
-                                                <img
-                                                  src={res}
-                                                  alt="Full view"
-                                                  className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                                                />
-                                              </div>
-                                            </DialogContent>
-                                          </Dialog>
-                                        </div>
-                                      </CarouselItem>
-                                    ))
-                                  ) : (
-                                    <div className="flex items-center justify-center w-full h-40">
-                                      <Skeleton className="h-full w-full" />
-                                    </div>
-                                  )}
-                                </CarouselContent>
-
-                                <CarouselPrevious />
-                                <CarouselNext />
-                              </Carousel>
+                              <InterestCarousel media={res}/>
                             </a>
                           </div>
                         </div>

@@ -142,7 +142,7 @@ export default function LandingPage() {
     blue: "bg-blue-500/20 text-blue-400 border-blue-500/30",
   };
 
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 1000, stopOnInteraction: true }));
 
   return (
     <main className="h-screen pb-16">
