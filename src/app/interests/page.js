@@ -248,10 +248,10 @@ export default function LandingPage() {
       {/* Interests */}
 
       <BlurFade delay={0.25} inView>
-      <section id="interests" className="pageContent flex-wrap flex-col w-full">
+      <section id="interests" className="pageContent flex-wrap flex-col w-full sticky top-14 z-40 py-4 bg-slate/10 backdrop-blur-sm">
         <div className="max-w-3xl mx-auto px-4  md:flex-row  gap-10">
           {/* header */}
-          <div>
+          <div className="">
             <h1 className="font-bold text-2xl ">
               My
               <span className="bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent m-1">
@@ -274,7 +274,7 @@ export default function LandingPage() {
                   <>
                     {myInterestData.map((res, index) => (
                     <BlurFade key={res.id} delay={0.25} inView>
-                      <div key={res.id} className="">
+                      <div key={res.id} className="mt-30">
                         {/* 2. Ensure Card is a flex container for the Image + Content */}
                         <div className="m-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                           {/* Description — left on even, right on odd */}

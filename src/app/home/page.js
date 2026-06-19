@@ -238,14 +238,18 @@ export default function LandingPage() {
             <br />
             <div className="mt-5  ">
               <span>
-                My name is Landicho James Evans Arvesu. I am from the
-                Philippines, however I lived in Singapore ever since I was a
-                year old - so I often confuse whether I consider myself being a
-                real Filipino when I have stayed in Singapore longer than my
-                home country. Outside school, I play as a keyboardist for a
-                church every 3rd sunday of the month as service. We occasionaly
-                have perfomances throughout the year too.
+                From a young age, I have been driven by the curiosity and an itch to create.
+                I began by learning Lua to create games on Roblox, which sparked my interest in programming.
+                Over time, I ventured into Photoshop, Blender, and music production, each of which has shaped my creativity and technical skills.
+                These have allowed me to explore different mediums, and further advancing to create unique solutions and experiences, leading me
+                to pursue a career in software engineering.
               </span>
+              <br/>
+              <br/>
+              <span>
+                With my aspiration, I wish to shape the future of technology by working in R&D environments, creating uniquely-unconventional creativity-driven solutions that solve real-world problems through the use of emerging technologies. 
+              </span>
+              
             </div>
 
             <div className="">
